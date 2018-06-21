@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TextInput, Button, Alert } from 'react-native';
 
 import styles from './assets/css/Style';
 
@@ -41,6 +41,7 @@ export default class App extends React.Component {
                                 }}></TextInput>
 
                     <TextInput  label="Password"
+                                onKeyPress={ (keyPress) => console.log(keyPress)}
                                 onChangeText={ password => this.setState({password}) }
                                 style={{
                                     marginLeft: 30,
@@ -53,7 +54,18 @@ export default class App extends React.Component {
                                     backgroundColor: '#fff',
                                     letterSpacing: -1
                                 }}
-                                secureTextEntry={true}></TextInput>
+                                secureTextEntry={true}
+                                onSubmitEditing= { () => {
+                                    Alert.alert('email: ' + this.state.email, "pw: " + this.state.password);
+                                }}>
+                    </TextInput>
+
+                    <Button
+                        onPress={() => {
+                            Alert.alert('email: ' + this.state.email, "pw: " + this.state.password);
+                        }}
+                        title="Log in"
+                        />
                 </View>
             </ImageBackground>
         );
