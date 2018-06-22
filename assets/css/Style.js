@@ -52,4 +52,28 @@ export default StyleSheet.create({
     	fontSize: 20,
     	color: 'white',
     },
+
+    course_card: {
+        padding: 20,
+        margin: 3,
+        borderRadius: 8,
+        backgroundColor: '#ff5f52'
+    },
+
+    course_card_title: {
+        fontWeight: 'bold'
+    },
+
+    course_card_author: {
+        textAlign: 'right',
+        fontSize: 9,
+        color: '#263238'
+    },
+
+    section_header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#263238'
+    }
 });

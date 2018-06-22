@@ -13,6 +13,8 @@ export default class Login extends React.Component {
             'email': 'aeros@aeros.com',
             'password': 'Welkom!1234'
         }
+
+        this.checkLogin();
     }
 
     checkLogin() {
