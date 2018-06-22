@@ -1,24 +1,42 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Api from './Api.js';
+import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
-        let api = Api.getInstance();
-        let userData = {
-            token: Session.getInstance().getToken(),
-            userId: Session.getInstance().getUserId()
+        this.state = {
+            userName: '1234',
+            subsribedCourses: [],
         }
-        api.call('api/user/' + Session.getInstance().getUserId(), 'POST', userData, response => {
-            console.log(response);
+        let api = Api.getInstance();
+        api.callApi('api/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
+            this.setState({userName: response[0]['fields']['name']});
         });
-        
+        this.getSubscribedCourses();
+    }
+
+    getSubscribedCourses() {
+        let subArray = [];
+        Api.getInstance().callApi('api/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
+            for(course of response) {
+                subArray.push(
+                        <Text key="{course['fields']['id']}">{ course['fields']['name']}</Text>
+                    );
+                this.setState({subscribedCourses: subArray});
+            }
+        });
+
     }
     render() {
       return (
-        <View>  
+        <View style = {{ padding: 30}}>
+            <Text>Hi {this.state.userName }</Text>
+            <ScrollView>
+                { this.state.subscribedCourses }
+            </ScrollView>
         </View>
       );
     }

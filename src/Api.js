@@ -1,4 +1,5 @@
 import React from 'react';
+import Session from './Session.js';
 
 export default class Api {
 
@@ -14,6 +15,26 @@ export default class Api {
 	}
 
 	callApi(action, method, data, callBack = response => console.log(response)) {
+		let userData = {
+			token: Session.getInstance().getToken(),
+            user_id: Session.getInstance().getUserId(),
+            params: data
+		}
+		fetch(this.url+action, {
+			method: method,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(userData)
+		}).then((response) => response.json())
+		.then(responseJson => callBack(responseJson))
+		.catch((error) => {
+			console.log(error);
+		})
+	}
+
+	apiLogin(action, method, data, callBack = response => console.log(response)) {
 		fetch(this.url+action, {
 			method: method,
 			headers: {

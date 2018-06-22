@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TextInput, Button, Alert, TouchableOpacity, Image } from 'react-native';
 import Api from './Api.js';
 import Session from './Session.js';
-
 import styles from '../assets/css/Style';
 
 export default class Login extends React.Component {
@@ -23,7 +22,7 @@ export default class Login extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             }
-            api.callApi('api/login', 'POST', userData, response => {
+            api.apiLogin('api/login', 'POST', userData, response => {
                 if(Object.keys(response).length != 0) {
                     Session.getInstance().saveToken(response['token']);
                     Session.getInstance().saveUserId(response['user_id']);
