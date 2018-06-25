@@ -23,10 +23,15 @@ export default class Home extends React.Component {
         Api.getInstance().callApi('api/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
             for(course of response) {
                 subArray.push(
-                        <Text key="{course['fields']['id']}">{ course['fields']['name']}</Text>
+                        <TouchableOpacity key= {course.pk} onPress={() => {
+                            console.log(course.pk);
+                            this.props.history.push('/course/' + course.pk);
+                        }}>
+                            <Text style={styles.subscribedCourseCard }>{ course['fields']['name']}</Text>
+                        </TouchableOpacity>
                     );
-                this.setState({subscribedCourses: subArray});
             }
+            this.setState({subscribedCourses: subArray});
         });
 
     }
