@@ -60,10 +60,10 @@ export default StyleSheet.create({
     courseLessonCard: {
     	borderWidth: 3,
     	padding: 30,
+    	backgroundColor: 'red',
     	borderColor: 'black',
     	borderRadius: 10,
     	width: Dimensions.get('window').width-20,
-    	height: 150,
     	alignItems: 'center',
     	justifyContent: 'center',
     	margin: 10

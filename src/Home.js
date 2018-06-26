@@ -22,11 +22,9 @@ export default class Home extends React.Component {
         let subArray = [];
         Api.getInstance().callApi('api/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
             for(course of response) {
+                let id = course.pk;
                 subArray.push(
-                        <TouchableOpacity key= {course.pk} onPress={() => {
-                            console.log(course.pk);
-                            this.props.history.push('/course/' + course.pk);
-                        }}>
+                        <TouchableOpacity key= {course.pk} onPress={() => this.props.history.push('/course/' + id)}>
                             <Text style={styles.subscribedCourseCard }>{ course['fields']['name']}</Text>
                         </TouchableOpacity>
                     );
@@ -35,6 +33,7 @@ export default class Home extends React.Component {
         });
 
     }
+
     render() {
       return (
         <View style = {{ padding: 30}}>
