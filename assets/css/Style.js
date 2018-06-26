@@ -63,10 +63,14 @@ export default StyleSheet.create({
     	borderColor: 'black',
     	borderRadius: 10,
     	width: Dimensions.get('window').width-20,
-    	height: 150,
+    	height: 50,
     	alignItems: 'center',
     	justifyContent: 'center',
     	margin: 10
+    },
+
+    courseLessonContainer: {
+    	maxHeight: 100
     },
 
     courseDetContainer: {
