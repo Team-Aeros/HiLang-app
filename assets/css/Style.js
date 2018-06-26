@@ -131,5 +131,11 @@ export default StyleSheet.create({
 
     bold: {
         fontWeight: 'bold'
+    },
+
+    sidebar: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#efefef'
     }
 });
