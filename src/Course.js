@@ -42,7 +42,7 @@ export default class Course extends React.Component {
             for(lesson of response) {
                 let id = lesson.pk
                 subArray.push(
-                        <TouchableOpacity /*style={styles.courseLessonCard}*/ key={lesson.pk} onPress={() => 
+                        <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => 
                             this.props.history.push('/lesson/' + id)
                         }>
                             <Text> {lesson.fields['name']} </Text>
@@ -64,7 +64,7 @@ export default class Course extends React.Component {
                 <View style={{padding: 10}}>
                     <Text> {this.state.description} </Text>
                 </View>
-                <ScrollView style={{height: 50, backgroundColor: 'blue'}} horizontal={true} pagingEnabled={true}>
+                <ScrollView style={styles.courseLessonContainer} horizontal={true} pagingEnabled={true}>
                     { this.state.lessons }
                 </ScrollView>
             </View>
