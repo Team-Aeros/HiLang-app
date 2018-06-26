@@ -6,6 +6,8 @@ import Course from './src/Course.js';
 import Lesson from './src/Lesson.js';
 import {NativeRouter, Switch, Route} from 'react-router-native';
 
+const SideMenu = require('react-native-side-menu');
+
 export default class App extends React.Component {
 
     render() {

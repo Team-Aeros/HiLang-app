@@ -23,22 +23,21 @@ export default class Home extends React.Component {
         let subArray = [];
         Api.getInstance().callApi('api/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
             for(course of response) {
-                console.log(course);
+                const id = course.pk;
                 subArray.push(
-                        <TouchableOpacity key= {course.pk} style={ styles.course_card } key={ course['pk'] } onPress={() => {
-                            console.log(course.pk);
-                            this.props.history.push('/course/' + course.pk);
-                        }}>
-                            <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
-                            <Text>{ course['fields']['description'] }</Text>
-                            <Text style={ styles.course_card_author }>Created by Test</Text>
-                        </TouchableOpacity>
-                    );
+                    <TouchableOpacity key= {course.pk} style={ styles.course_card } onPress={() => this.props.history.push('/course/' + id)}>
+                        <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
+                        <Text>{ course['fields']['description'] }</Text>
+                        <Text style={ styles.course_card_author }>Created by Test</Text>
+                    </TouchableOpacity>
+                );
             }
+
             this.setState({subscribedCourses: subArray});
         });
 
     }
+
     render() {
         return (
             <View style ={{ padding: 20}}>
