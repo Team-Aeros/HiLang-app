@@ -25,11 +25,13 @@ export default class Home extends React.Component {
             for(course of response) {
                 console.log(course);
                 subArray.push(
-                        <TouchableOpacity key= {course.pk} onPress={() => {
+                        <TouchableOpacity key= {course.pk} style={ styles.course_card } key={ course['pk'] } onPress={() => {
                             console.log(course.pk);
                             this.props.history.push('/course/' + course.pk);
                         }}>
-                            <Text style={styles.subscribedCourseCard }>{ course['fields']['name']}</Text>
+                            <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
+                            <Text>{ course['fields']['description'] }</Text>
+                            <Text style={ styles.course_card_author }>Created by Test</Text>
                         </TouchableOpacity>
                     );
             }
