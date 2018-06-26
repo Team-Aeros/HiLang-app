@@ -39,33 +39,35 @@ export default class Course extends React.Component {
     getLessons(id: number) {
         Api.getInstance().callApi('api/course/' + id + '/lessons', 'POST', {}, response => {
             let subArray = [];
+
             for(lesson of response) {
                 subArray.push(
-                        <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
-                            this.props.history.push('/lesson/' + lesson.pk);
-                        }}>
-                            <Text> {lesson.fields['name']} </Text>
-                        </TouchableOpacity>
-                    );
+                    <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
+                        this.props.history.push('/lesson/' + lesson.pk);
+                    }}>
+                        <Text>{lesson.fields['name']}</Text>
+                    </TouchableOpacity>
+                );
             }
-            this.setState({lessons: subArray});
 
+            this.setState({lessons: subArray});
         });
             
-        }
+    }
+
     render() {
         return (
             <View style = {styles.courseDetContainer}>
                 <View style = {{ padding: 30}}>
-                   <Text>{this.state.name}</Text>
-                   <Text>by {this.state.author}</Text>
+                    <Text>{this.state.name}</Text>
+                    <Text>by {this.state.author}</Text>
                 </View>
                 <View style={{padding: 10}}>
                     <Text> {this.state.description} </Text>
                 </View>
-                  <ScrollView centerContent={true} horizontal={true} pagingEnabled={true}>
-                      { this.state.lessons }
-                  </ScrollView>
+                <ScrollView centerContent={true} horizontal={true} pagingEnabled={true}>
+                    { this.state.lessons }
+                </ScrollView>
             </View>
         );
     }

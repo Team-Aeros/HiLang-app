@@ -40,7 +40,7 @@ export default class Home extends React.Component {
 
     }
     render() {
-      return (
+        return (
             <View style ={{ padding: 20}}>
                 <Text>Hi {this.state.userName }</Text>
                 <Text style={ styles.section_header }>My courses</Text>
