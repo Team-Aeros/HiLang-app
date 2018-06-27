@@ -58,7 +58,7 @@ export default class Course extends React.Component {
 
     render() {
         return (
-            <View style = {styles.container}>
+            <View style = {styles.courseDetContainer}>
                 <View style = {{ padding: 30}}>
                     <Text>{this.state.name}</Text>
                     <Text>by {this.state.author}</Text>

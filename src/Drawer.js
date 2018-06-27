@@ -3,7 +3,7 @@ import styles from '../assets/css/Style.js';
 
 import { View } from 'react-native';
 
-export default class Sidebar extends React.Component {
+export default class Drawer extends React.Component {
 
     render() {
         return (

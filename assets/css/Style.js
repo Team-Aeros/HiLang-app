@@ -4,6 +4,10 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 20 : 24,
+        padding: 20,
+    },
+
+    content: {
         padding: 20
     },
 
@@ -12,7 +16,7 @@ export default StyleSheet.create({
     },
 
     compTitle: {
-    	color: 'dimgray',
+    	color: '#efefef',
         fontSize: 50,
         marginBottom: 30,
         textAlign: 'center'
@@ -20,6 +24,8 @@ export default StyleSheet.create({
 
     logInEmail: {
     	margin: 30,
+        marginLeft: 10,
+        marginRight: 10,
         padding: 15,
         fontSize: 25,
         borderWidth: 1,
@@ -29,8 +35,8 @@ export default StyleSheet.create({
     },
 
     logInPw: {
-    	marginLeft: 30,
-       	marginRight: 30,
+    	marginLeft: 10,
+       	marginRight: 10,
        	marginTop: 0,
        	padding: 15,
        	fontSize: 25,
@@ -42,6 +48,8 @@ export default StyleSheet.create({
 
     logInBtnCon: {
     	margin: 30,
+        marginLeft: 10,
+        marginRight: 10,
     	backgroundColor: '#c62828cf',
     	padding: 15,
     	borderRadius: 10,
@@ -58,21 +66,29 @@ export default StyleSheet.create({
 
     },
 
-    course_card: {
-        padding: 20,
+    list_item: {
+        padding: 10,
         margin: 3,
-        borderRadius: 8,
-        backgroundColor: '#ff5f52'
+        borderColor: 'dimgray',
+        backgroundColor: '#fff',
+        shadowColor: '#595959',
+        shadowOffset: {
+            width: 1,
+            height: 2
+        },
+        shadowRadius: 2,
+        shadowOpacity: 1.0
     },
 
     course_card_title: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        //color: '#fff'
     },
 
     course_card_author: {
         textAlign: 'right',
         fontSize: 9,
-        color: '#263238'
+        //color: '#fff'
     },
 
     section_header: {
@@ -104,7 +120,7 @@ export default StyleSheet.create({
     },
 
     vocItem: {
-    	marginTop: 5,
+    	marginBottom: 6,
         marginLeft: 2,
         marginRight: 2,
     	width: Dimensions.get('window').width - 12
@@ -113,6 +129,7 @@ export default StyleSheet.create({
     vocEntry: {
     	padding: 3,
     	margin: 2,
+        marginTop: 0
     },
 
     startTestBtn: {

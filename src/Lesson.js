@@ -7,6 +7,11 @@ import Session from './Session.js';
 const maxEntryLength = 60;
 
 export default class Course extends React.Component {
+
+    static navigationOptions = {
+        title: 'Viewing lesson'
+    };
+
     constructor(props){
         super(props);
 
@@ -36,28 +41,10 @@ export default class Course extends React.Component {
 
                 let subArray = [];
                 for(entry of response.vocabulary) {
-                    let native = '';
-                    let translation = '';
-                    let total = entry.native.length + entry.translation.length;
-
-                    if(total >= maxEntryLength) {
-                        nativePart = entry.native.length / total;
-                        translationPart = entry.translation.length / total;
-
-                        nativeMaxLength = (nativePart * maxEntryLength) - 3;
-                        translationMaxLength = (translationPart * maxEntryLength) - 3;
-
-                        native = entry.native.slice(0,nativeMaxLength) + ' ...';
-                        translation = entry.translation.slice(0,translationMaxLength) + ' ...';
-                    } else {
-                        native = entry.native;
-                        translation = entry.translation;
-                    }
-
                     subArray.push(
-                        <View style={styles.vocItem} key={entry.id}>
-                            <Text style={styles.vocEntry}>{native}</Text>
-                            <Text style={styles.vocEntry}>{translation}</Text>
+                        <View style={[styles.list_item]} key={entry.id}>
+                            <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
+                            <Text style={styles.vocEntry}>{entry.translation}</Text>
                         </View>
                     );
                 }
@@ -71,7 +58,7 @@ export default class Course extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text style={ styles.section_header }>{this.state.name}</Text>
                 <View>
                     <Text>{this.state.description}</Text>
@@ -79,13 +66,13 @@ export default class Course extends React.Component {
                 <Text style={ styles.section_subheader }>Lesson content</Text>
                 <Text>{this.state.grammar}</Text>
                 <Text style={ styles.section_subheader }>Vocabulary</Text>
-                <ScrollView>
-                    {this.state.vocabulary}
-                </ScrollView>
-                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id})}>
+
+                {this.state.vocabulary}
+
+                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {state: this.state.id})}>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     }
 }

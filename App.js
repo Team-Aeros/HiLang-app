@@ -4,27 +4,83 @@ import Login from './src/Login.js';
 import Home from './src/Home.js';
 import Course from './src/Course.js';
 import Lesson from './src/Lesson.js';
+import LoginLoadingScreen from './src/LoginLoadingScreen.js';
+import Profile from './src/Profile.js';
+import CourseList from './src/CourseList.js';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Flashcards from './src/Flashcards.js';
 import Result from './src/Result.js';
 
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 
-const RootStack = createStackNavigator({
-        Login: Login,
-        Home: Home,
-        Course: Course,
-        Lesson: Lesson,
-        Flashcards: Flashcards,
-        Result: Result,
+const PreLoginStack = createStackNavigator({
+    Login: Login
+    /*Loading: {
+        screen: LoginLoadingScreen,
+        headerMode: 'none',
+        header: null,
+        tabBarVisible: false
+    },*/
+});
+
+const CourseArea = createStackNavigator({
+    CourseList: CourseList,
+    Course: Course,
+    Lesson: Lesson,
+    Flashcards: Flashcards,
+    Result: Result
+});
+
+const AccountArea = createStackNavigator({
+    Profile: Profile
+});
+
+const HomeArea = createStackNavigator({
+    Home: Home
+});
+
+const UserArea = createBottomTabNavigator({
+        Home: HomeArea,
+        Courses: CourseArea,
+        Account: AccountArea
     },
     {
-        initialRouteName: 'Login'
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor}) => {
+                const { routeName } = navigation.state;
+
+                let iconName;
+
+                switch (routeName) {
+                    case 'Home':
+                        iconName = 'ios-home';
+                        break;
+                    case 'Courses':
+                        iconName = 'ios-book';
+                        break;
+                    case 'Account':
+                        iconName = 'ios-settings';
+                        break;
+                }
+
+                return <Ionicons name={iconName} size={25} color={tintColor} />;
+            }
+        })
+    }
+);
+
+const Navigation = createSwitchNavigator({
+        Auth: PreLoginStack,
+        UserArea: UserArea,
+    },
+    {
+        initialRouteName: 'Auth'
     }
 );
 
 export default class App extends React.Component {
 
     render() {
-        return <RootStack />;
+        return <Navigation />;
     }
 }
