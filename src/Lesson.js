@@ -29,10 +29,11 @@ export default class Course extends React.Component {
                     category: response.category,
                     description: response.description,
                     grammar: response.grammar,
-                    course_id: response.course_id,
+                    course_id: response.course_id
                 });
+
                 let subArray = [];
-                for(entry of response.vocabulary){
+                for(entry of response.vocabulary) {
                     let native = '';
                     let translation = '';
                     let total = entry.native.length + entry.translation.length;
@@ -49,6 +50,7 @@ export default class Course extends React.Component {
                         native = entry.native;
                         translation = entry.translation;
                     }
+
                     subArray.push(
                         <View style={styles.vocItem} key={entry.id}>
                             <Text style={styles.vocEntry}>{native}</Text>
@@ -63,11 +65,10 @@ export default class Course extends React.Component {
                         <Text style={styles.vocEntry}>{translation}</Text>
                     </View>
                 );
-            }
 
-            this.setState({
-                vocabulary: subArray
-            });
+                this.setState({
+                    vocabulary: subArray
+                });
         });
             
     }
