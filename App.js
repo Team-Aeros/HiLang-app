@@ -5,12 +5,29 @@ import Home from './src/Home.js';
 import Course from './src/Course.js';
 import Lesson from './src/Lesson.js';
 import Flashcards from './src/Flashcards.js';
-import {NativeRouter, Switch, Route} from 'react-router-native';
+
+import { createStackNavigator } from 'react-navigation';
+
+const RootStack = createStackNavigator({
+        Login: Login,
+        Home: Home,
+        Course: Course,
+        Lesson: Lesson,
+        Flashcards: Flashcards
+    },
+    {
+        initialRouteName: 'Login'
+    }
+);
 
 export default class App extends React.Component {
 
     render() {
-        return (
+        return <RootStack />;
+    }
+}
+
+/**
             <NativeRouter>
                 <Switch>
                     <Route exact path="/" component={Login} />
@@ -20,6 +37,4 @@ export default class App extends React.Component {
                     <Route exact path="/flashcards/:l_id" component={Flashcards} />
                 </Switch>
             </NativeRouter>
-        );
-    }
-}
+*/

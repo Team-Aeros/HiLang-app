@@ -28,7 +28,7 @@ export default class Login extends React.Component {
                 if(Object.keys(response).length != 0) {
                     Session.getInstance().saveToken(response['token']);
                     Session.getInstance().saveUserId(response['user_id']);
-                    this.props.history.push('/home');
+                    this.props.navigation.navigate('Home');
                 } else {
                     Alert.alert("Could not log in");
                 } 

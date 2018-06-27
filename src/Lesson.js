@@ -3,7 +3,9 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-nati
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
+
 const maxEntryLength = 60;
+
 export default class Course extends React.Component {
     constructor(props){
         super(props);
@@ -18,7 +20,7 @@ export default class Course extends React.Component {
             vocabulary: []
         }
 
-        this.getLesson(this.props.match.params['l_id']);
+        this.getLesson(this.props.navigation.getParam('id'));
     }
 
     getLesson(id: number) {
@@ -37,6 +39,7 @@ export default class Course extends React.Component {
                     let native = '';
                     let translation = '';
                     let total = entry.native.length + entry.translation.length;
+
                     if(total >= maxEntryLength) {
                         nativePart = entry.native.length / total;
                         translationPart = entry.translation.length / total;
@@ -86,9 +89,7 @@ export default class Course extends React.Component {
                 <ScrollView>
                     {this.state.vocabulary}
                 </ScrollView>
-                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => 
-                    this.props.history.push('/flashcards/' + this.state.id)
-                }>
+                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {state: this.state.id})}>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
             </View>

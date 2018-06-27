@@ -8,7 +8,7 @@ export default class Flashcards extends React.Component {
     constructor(props){
         super(props);
         this.exercise = new Exercise();
-        this.exercise.innitialize(this.props.match.params['l_id']);
+        this.exercise.innitialize(this.props.navigation.getParam('id'));
         this.state = {
             currentWord: '',
         }
