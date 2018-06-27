@@ -48,10 +48,11 @@ export default class Course extends React.Component {
             for(lesson of response) {
                 const id = lesson.pk;
                 subArray.push(
-                    <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
+                    <TouchableOpacity style={styles.list_item} key={lesson.pk} onPress={() => {
                         this.props.navigation.navigate('Lesson', {id: id});
                     }}>
-                        <Text>{lesson.fields['name']}</Text>
+                        <Text style={styles.course_card_title}>{lesson.fields['name']}</Text>
+                        <Text>{lesson.fields['description']}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -63,19 +64,16 @@ export default class Course extends React.Component {
 
     render() {
         return (
-            <View style = {styles.courseDetContainer}>
-                <View style = {{ padding: 30}}>
-                    <Text>{this.state.name}</Text>
-                    <Text>by {this.state.author}</Text>
-                </View>
-                <View style={{padding: 10}}>
-                    <Text> {this.state.description} </Text>
-                </View>
+            <ScrollView style={[styles.content, styles.courseLessonContainer]} pagingEnabled={true}>
+                <Text style={ styles.section_header }>{this.state.name}</Text>
+                <Text>by {this.state.author}</Text>
 
-                <ScrollView style={styles.courseLessonContainer} horizontal={true} pagingEnabled={true}>
-                    { this.state.lessons }
-                </ScrollView>
-            </View>
+                <Text style={ styles.section_subheader }>Course description</Text>
+                <Text> {this.state.description} </Text>
+
+                <Text style={ styles.section_subheader }>Lessons</Text>
+                { this.state.lessons }
+            </ScrollView>
         );
     }
 }

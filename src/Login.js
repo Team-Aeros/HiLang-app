@@ -19,8 +19,6 @@ export default class Login extends React.Component {
             'email': 'aeros@aeros.com',
             'password': 'Welkom!1234'
         }
-
-        this.checkLogin();
     }
 
     checkLogin() {
@@ -46,7 +44,7 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <ImageBackground style={styles.container} source={ require('../assets/images/login.jpg') }>
+            <ImageBackground style={styles.container} source={ require('../assets/images/login-alt.jpeg') }>
                 <View style={ styles.logInContainer }>
                     <Text style={ styles.compTitle }>HiLang</Text>
                     <TextInput  label="E-mail address"

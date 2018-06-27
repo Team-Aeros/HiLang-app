@@ -29,11 +29,11 @@ export default class Home extends React.Component {
 
     getSubscribedCourses() {
         let subArray = [];
-        Api.getInstance().callApi('api/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
+        Api.getInstance().callApi('api/courses/', 'POST', {}, response => {
             for(course of response) {
                 const id = course.pk;
                 subArray.push(
-                    <TouchableOpacity key= {course.pk} style={ styles.course_card } onPress={() => this.props.navigation.navigate('Course', {id: id})}>
+                    <TouchableOpacity key= {course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: id})}>
                         <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
                         <Text>{ course['fields']['description'] }</Text>
                         <Text style={ styles.course_card_author }>Created by Test</Text>
@@ -48,12 +48,13 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <View style ={{ padding: 20}}>
-                <Text style={ styles.section_header }>My courses</Text>
-                <ScrollView>
+            <ScrollView>
+                <View style ={{ padding: 20}}>
+                    <Text style={ styles.section_header }>Hello, { this.state.userName }</Text>
+                    <Text style={ styles.section_subheader }>Courses you've created</Text>
                     { this.state.subscribedCourses }
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 }

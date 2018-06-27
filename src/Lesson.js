@@ -42,7 +42,7 @@ export default class Course extends React.Component {
                 let subArray = [];
                 for(entry of response.vocabulary) {
                     subArray.push(
-                        <View style={styles.vocItem} key={entry.id}>
+                        <View style={[styles.list_item]} key={entry.id}>
                             <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
                             <Text style={styles.vocEntry}>{entry.translation}</Text>
                         </View>
@@ -58,7 +58,7 @@ export default class Course extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text style={ styles.section_header }>{this.state.name}</Text>
                 <View>
                     <Text>{this.state.description}</Text>
@@ -66,13 +66,13 @@ export default class Course extends React.Component {
                 <Text style={ styles.section_subheader }>Lesson content</Text>
                 <Text>{this.state.grammar}</Text>
                 <Text style={ styles.section_subheader }>Vocabulary</Text>
-                <ScrollView>
-                    {this.state.vocabulary}
-                </ScrollView>
+
+                {this.state.vocabulary}
+
                 <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {state: this.state.id})}>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     }
 }
