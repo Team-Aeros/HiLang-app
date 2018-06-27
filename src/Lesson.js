@@ -41,24 +41,6 @@ export default class Course extends React.Component {
 
                 let subArray = [];
                 for(entry of response.vocabulary) {
-                    let native = '';
-                    let translation = '';
-                    let total = entry.native.length + entry.translation.length;
-
-                    if(total >= maxEntryLength) {
-                        nativePart = entry.native.length / total;
-                        translationPart = entry.translation.length / total;
-
-                        nativeMaxLength = (nativePart * maxEntryLength) - 3;
-                        translationMaxLength = (translationPart * maxEntryLength) - 3;
-
-                        native = entry.native.slice(0,nativeMaxLength) + ' ...';
-                        translation = entry.translation.slice(0,translationMaxLength) + ' ...';
-                    } else {
-                        native = entry.native;
-                        translation = entry.translation;
-                    }
-
                     subArray.push(
                         <View style={styles.vocItem} key={entry.id}>
                             <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
