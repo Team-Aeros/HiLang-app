@@ -24,7 +24,6 @@ export default class Flashcards extends React.Component {
         this.setState({currentWord: this.exercise.getCurrentWord()});
     }
 
-    
 
     render() {
         if(this.state.currentWord != null) {

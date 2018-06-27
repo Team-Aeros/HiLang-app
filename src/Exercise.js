@@ -33,8 +33,11 @@ export default class Exercise{
         } else {
             this.incorrectWords.push(this.currentWord);
         }
+
         if(this.hasNext()) {
             this.vocabulary.shift();
+        } else if(this.incorrectWords.length === 0) {
+        	this.exit();
         } else {
         	this.vocabulary = this.incorrectWords.slice();
         }
@@ -48,6 +51,10 @@ export default class Exercise{
 
     getCurrentWord() {
     	return this.currentWord;
+    }
+
+    exit() {
+    	Alert.alert("You have finished this exercise");
     }
 
 }
