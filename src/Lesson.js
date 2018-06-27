@@ -7,6 +7,11 @@ import Session from './Session.js';
 const maxEntryLength = 60;
 
 export default class Course extends React.Component {
+
+    static navigationOptions = {
+        title: 'Viewing lesson'
+    };
+
     constructor(props){
         super(props);
 
@@ -56,18 +61,11 @@ export default class Course extends React.Component {
 
                     subArray.push(
                         <View style={styles.vocItem} key={entry.id}>
-                            <Text style={styles.vocEntry}>{native}</Text>
-                            <Text style={styles.vocEntry}>{translation}</Text>
+                            <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
+                            <Text style={styles.vocEntry}>{entry.translation}</Text>
                         </View>
                     );
                 }
-
-                subArray.push(
-                    <View style={styles.vocItem} key={entry.id}>
-                        <Text style={[styles.vocEntry, styles.bold]}>{native}</Text>
-                        <Text style={styles.vocEntry}>{translation}</Text>
-                    </View>
-                );
 
                 this.setState({
                     vocabulary: subArray

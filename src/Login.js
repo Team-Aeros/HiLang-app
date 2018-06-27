@@ -6,6 +6,12 @@ import styles from '../assets/css/Style';
 
 export default class Login extends React.Component {
 
+    static navigationOptions = {
+        header: null,
+        tabBarVisible: false,
+        gesturesEnabled: false
+    }
+
     constructor(props) {
         super(props);
 

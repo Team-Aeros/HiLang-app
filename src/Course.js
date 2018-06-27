@@ -5,6 +5,11 @@ import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
 export default class Course extends React.Component {
+
+    static navigationOptions = {
+        title: 'Viewing course'
+    };
+
     constructor(props){
         super(props);
         this.state = {

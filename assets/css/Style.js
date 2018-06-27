@@ -104,7 +104,7 @@ export default StyleSheet.create({
     },
 
     vocItem: {
-    	marginTop: 5,
+    	marginBottom: 6,
         marginLeft: 2,
         marginRight: 2,
     	width: Dimensions.get('window').width - 12
@@ -113,6 +113,7 @@ export default StyleSheet.create({
     vocEntry: {
     	padding: 3,
     	margin: 2,
+        marginTop: 0
     },
 
     startTestBtn: {

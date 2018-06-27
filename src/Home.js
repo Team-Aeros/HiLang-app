@@ -6,16 +6,24 @@ import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
 export default class Home extends React.Component {
+
+    static navigationOptions = {
+        title: 'Dashboard'
+    };
+
     constructor(props) {
         super(props);
+
         this.state = {
             userName: '',
             subsribedCourses: [],
         }
+
         let api = Api.getInstance();
         api.callApi('api/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
             this.setState({userName: response.name});
         });
+
         this.getSubscribedCourses();
     }
 
@@ -41,7 +49,6 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style ={{ padding: 20}}>
-                <Text>Hi {this.state.userName }</Text>
                 <Text style={ styles.section_header }>My courses</Text>
                 <ScrollView>
                     { this.state.subscribedCourses }
