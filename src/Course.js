@@ -1,15 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
 export default class Course extends React.Component {
-
-    static navigationOptions = {
-        title: 'Viewing course'
-    };
-
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +13,7 @@ export default class Course extends React.Component {
             description: '',
             author: '',
             authorId: '',
-            image: '',
+            image: 'https://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png',
             favorite: '',
             subscription: '',
             lessons: []
@@ -36,7 +31,8 @@ export default class Course extends React.Component {
                 author: response.author.name,
                 authorId: response.authorId,
                 favorite: response.favorite,
-                subscription: response.subscription
+                subscription: response.subscription,
+                image: response.image
             });
         });
     }
@@ -44,36 +40,41 @@ export default class Course extends React.Component {
     getLessons(id: number) {
         Api.getInstance().callApi('api/course/' + id + '/lessons', 'POST', {}, response => {
             let subArray = [];
-
             for(lesson of response) {
-                const id = lesson.pk;
+                let id = lesson.pk;
                 subArray.push(
-                    <TouchableOpacity style={styles.list_item} key={lesson.pk} onPress={() => {
-                        this.props.navigation.navigate('Lesson', {id: id});
+                    <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
+                        this.props.navigation.navigate('Lesson', {id: id, img: this.state.image});
                     }}>
-                        <Text style={styles.course_card_title}>{lesson.fields['name']}</Text>
-                        <Text>{lesson.fields['description']}</Text>
+                        <Text>{lesson.fields['name']}</Text>
                     </TouchableOpacity>
                 );
             }
 
             this.setState({lessons: subArray});
         });
-            
     }
 
     render() {
         return (
-            <ScrollView style={[styles.content, styles.courseLessonContainer]} pagingEnabled={true}>
-                <Text style={ styles.section_header }>{this.state.name}</Text>
-                <Text>by {this.state.author}</Text>
-
-                <Text style={ styles.section_subheader }>Course description</Text>
-                <Text> {this.state.description} </Text>
-
-                <Text style={ styles.section_subheader }>Lessons</Text>
-                { this.state.lessons }
-            </ScrollView>
+            <ImageBackground style={styles.courseBackground} source={{uri: this.state.image}}>
+                <View style={styles.courseDetContainer}>
+                    <View>
+                        <View style={styles.courseHeader}>
+                            <Text style = {styles.section_header}>{this.state.name}</Text>
+                            <Text>by {this.state.author}</Text>
+                        </View>
+                        <View style={styles.courseContent}>
+                            <Text style={ styles.section_subheader }> {this.state.description} </Text>
+                        </View>
+                    </View>
+                    <View style={styles.courseBottom}>
+                        <ScrollView horizontal={true} pagingEnabled={true} height={50}>
+                            { this.state.lessons }
+                        </ScrollView>
+                    </View>
+                </View>
+            </ImageBackground>
         );
     }
 }

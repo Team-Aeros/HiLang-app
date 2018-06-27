@@ -7,6 +7,11 @@ export default StyleSheet.create({
         padding: 20,
     },
 
+    courseBackground: {
+        height: Dimensions.get('window').height - 120,
+        width: Dimensions.get('window').width,
+    },
+
     content: {
         padding: 20
     },
@@ -82,13 +87,11 @@ export default StyleSheet.create({
 
     course_card_title: {
         fontWeight: 'bold',
-        //color: '#fff'
     },
 
     course_card_author: {
         textAlign: 'right',
         fontSize: 9,
-        //color: '#fff'
     },
 
     section_header: {
@@ -116,7 +119,8 @@ export default StyleSheet.create({
     	height: 50,
     	alignItems: 'center',
     	justifyContent: 'center',
-    	margin: 10
+    	margin: 10,
+        backgroundColor: '#309930'
     },
 
     vocItem: {
@@ -132,13 +136,13 @@ export default StyleSheet.create({
         marginTop: 0
     },
 
-    startTestBtn: {
+    standarBtn: {
     	color: 'white',
     	fontSize: 20,
     	textAlign: 'center'
     }, 
 
-    startTestBtnCon: {
+    standarBtnCon: {
     	margin: 30,
     	backgroundColor: 'green',
     	padding: 15,
@@ -154,6 +158,50 @@ export default StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#efefef'
+    }, 
+
+    resultItemCorrect: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#49d849',
+        borderRadius: 10,
+        marginTop: 5,
+        marginLeft: 2,
+        marginRight: 2,
+        width: Dimensions.get('window').width - 12
+    },
+
+    resultItemInCorrect: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#c12222',
+        borderRadius: 10,
+        marginTop: 5,
+        marginLeft: 2,
+        marginRight: 2,
+        width: Dimensions.get('window').width - 12
+    },
+
+    resultEntryRight: {
+        marginLeft: 40
+    },
+
+    resultEntry: {
+        padding: 3,
+        margin: 2,
+    },
+
+    resultContainer: {
+        padding: 5
+    },
+
+    resultHeader: {
+        borderWidth: 3,
+        marginBottom: 10,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: Dimensions.get('window').height / 10
     },
 
     simple_list_item: {
@@ -161,5 +209,72 @@ export default StyleSheet.create({
         borderColor: '#dddddd',
         borderBottomWidth: 1,
         backgroundColor: '#fff'
+    }, 
+
+    startExerciseScreen: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    startExerciseBtnCon: {
+        margin: 200,
+        backgroundColor: 'green',
+        padding: 15,
+        borderRadius: 50,
+        overflow: 'hidden',
+        height: 100,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+
+    courseHeader: {
+        marginBottom: 30,
+        alignItems: 'center',
+    },
+
+    courseContent: {
+        margin: 10,
+        borderWidth: 1,
+        borderColor: '#747574',
+        backgroundColor: '#f9fff9'
+    },
+
+    courseDetContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+
+    courseBottom: {
+        marginBottom: 5,
+        height: 100
+    },
+
+    testTitle: {
+        borderWidth: 1,
+        borderColor: '#747574',
+        borderRadius: 10,
+        backgroundColor: '#f9fff9',
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
+
+    testContainer: {
+        borderWidth: 3,
+        borderColor: '#747574',
+        borderRadius: 10,
+        backgroundColor: '#f9fff9',
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: 200
+    },
+
+    testInput: {
+        alignSelf: 'center',
+        letterSpacing: -1,
+        fontSize: 15,
+        width: 100
     }
 });

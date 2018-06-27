@@ -10,6 +10,7 @@ import Profile from './src/Profile.js';
 import CourseList from './src/CourseList.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Flashcards from './src/Flashcards.js';
+import Result from './src/Result.js';
 
 import AccountAreaNavigation from './src/navigation/AccountAreaNavigation.js';
 
@@ -30,7 +31,8 @@ const CourseArea = createStackNavigator({
     CourseList: CourseList,
     Course: Course,
     Lesson: Lesson,
-    Flashcards: Flashcards
+    Flashcards: Flashcards,
+    Result: Result
 });
 
 const AccountArea = createStackNavigator({
@@ -87,15 +89,3 @@ export default class App extends React.Component {
         return <Navigation />;
     }
 }
-
-/**
-            <NativeRouter>
-                <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route exact path="/home" component={Home} />
-                    <Route exact path="/course/:c_id" component={Course} />
-                    <Route exact path="/lesson/:l_id" component={Lesson} />
-                    <Route exact path="/flashcards/:l_id" component={Flashcards} />
-                </Switch>
-            </NativeRouter>
-*/
