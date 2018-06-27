@@ -20,11 +20,7 @@ export default class Flashcards extends React.Component {
 
 
     next() {
-        if(this.exercise.getRound() === 0) {
-            this.exercise.next('Dit is fout');
-        } else {
-            this.exercise.next(this.state.currentWord.correctAnswer);
-        }
+        this.exercise.next(this.state.currentWord.correctAnswer);
         this.setState({currentWord: this.exercise.getCurrentWord()});
         this.setState({answer: ''});
         this.setState({progress: this.exercise.getProgress()});

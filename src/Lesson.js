@@ -69,7 +69,7 @@ export default class Course extends React.Component {
 
                 {this.state.vocabulary}
 
-                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {state: this.state.id})}>
+                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id})}>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
             </ScrollView>

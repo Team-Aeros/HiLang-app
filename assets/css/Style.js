@@ -157,6 +157,8 @@ export default StyleSheet.create({
     }, 
 
     resultItemCorrect: {
+        flex: 1,
+        flexDirection: 'row',
         backgroundColor: '#49d849',
         borderRadius: 10,
         marginTop: 5,
@@ -166,6 +168,8 @@ export default StyleSheet.create({
     },
 
     resultItemInCorrect: {
+        flex: 1,
+        flexDirection: 'row',
         backgroundColor: '#c12222',
         borderRadius: 10,
         marginTop: 5,
@@ -174,18 +178,31 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width - 12
     },
 
+    resultEntryRight: {
+        marginLeft: 40
+    }
+
     resultEntry: {
         padding: 3,
         margin: 2,
     },
 
     resultContainer: {
-        flex: 1,
-        justifyContent: 'space-between'
-    }
+        padding: 5
+    },
+
 
     courseDetContainer: {
         flex: 1,
         justifyContent: 'space-between'
+    },
+
+    resultHeader: {
+        borderWidth: 3,
+        marginBottom: 10,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: Dimensions.get('window').height / 10
     }
 });

@@ -40,16 +40,31 @@ export default class Result extends React.Component {
             if(words.correct) {
                result.push(
                     <View key={words.word.id} style={styles.resultItemCorrect}>
-                        <Text style={ styles.resultEntry }>{words.word.question}</Text>
-                        <Text style={ styles.resultEntry }>{words.word.correctAnswer}</Text>
+                        <View>
+                            <Text style={ styles.resultEntry }>Question:</Text>
+                            <Text style={ styles.resultEntry }>Your Answer:</Text>
+                            <Text style={ styles.resultEntry }>Correct Answer:</Text>
+                        </View>
+                        <View style={styles.resultEntryRight}>
+                            <Text style={ styles.resultEntry }>{words.word.question}</Text>
+                            <Text style={ styles.resultEntry }>{words.answer}</Text>
+                            <Text style={ styles.resultEntry }>{words.word.correctAnswer}</Text>
+                        </View>
                     </View>
                 ); 
             } else {
                 result.push(
                     <View key={words.word.id} style={styles.resultItemInCorrect}>
-                        <Text style={ styles.resultEntry }>{words.word.question}</Text>
-                        <Text style={ styles.resultEntry }>{words.answer}</Text>
-                        <Text style={ styles.resultEntry }>{words.word.correctAnswer}</Text>
+                        <View>
+                            <Text style={ styles.resultEntry }>Question:</Text>
+                            <Text style={ styles.resultEntry }>Your Answer:</Text>
+                            <Text style={ styles.resultEntry }>Correct Answer:</Text>
+                        </View>
+                        <View style={styles.resultEntryRight}>
+                            <Text style={ styles.resultEntry }>{words.word.question}</Text>
+                            <Text style={ styles.resultEntry }>{words.answer}</Text>
+                            <Text style={ styles.resultEntry }>{words.word.correctAnswer}</Text>
+                        </View>
                     </View>
                 );
             }
@@ -59,20 +74,20 @@ export default class Result extends React.Component {
 
     render() {
         return (
-            <View style={styles.resultContainer}>
-                <Text>
-                    You took {this.state.rounds}
-                </Text>
-                <Text>
-                    Grade: { this.state.grade }
-                </Text>
-                <Text>
-                    Your total time was { this.state.timeTaken } seconds
-                </Text>
-                <ScrollView>
-                    { this.state.result }
-                </ScrollView>
-            </View>
+            <ScrollView style={styles.resultContainer}>
+                <View style={styles.resultHeader}>
+                    <Text>
+                        { this.state.rounds }
+                    </Text>
+                    <Text>
+                        Grade: { this.state.grade }
+                    </Text>
+                    <Text>
+                        { this.state.timeTaken } seconds
+                    </Text>
+                </View>
+                { this.state.result }
+            </ScrollView>
         );
     }
 }
