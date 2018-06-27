@@ -16,7 +16,7 @@ export default class App extends React.Component {
                     <Route exact path="/home" component={Home} />
                     <Route exact path="/course/:c_id" component={Course} />
                     <Route exact path="/lesson/:l_id" component={Lesson} />
-                </Switch>  
+                </Switch>
             </NativeRouter>
         );
     }
