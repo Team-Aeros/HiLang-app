@@ -28,17 +28,24 @@ export default class Exercise{
     }
 
     next(answer) {
+    	console.log('correct answer: ' + this.currentWord.correctAnswer);
+    	console.log('answer: ' + answer);
         if(answer === this.currentWord.correctAnswer) {
+        	console.log("correct");
             this.correctWords.push(this.currentWord);
         } else {
+        	console.log("incorrect");
             this.incorrectWords.push(this.currentWord);
         }
 
         if(this.hasNext()) {
+        	console.log("hasnext");
             this.vocabulary.shift();
         } else if(this.incorrectWords.length === 0) {
+        	console.log("stop");
         	this.exit();
         } else {
+        	console.log("copying incorrectWords");
         	this.vocabulary = this.incorrectWords.slice();
         }
 

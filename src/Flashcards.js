@@ -10,17 +10,19 @@ export default class Flashcards extends React.Component {
         this.exercise = new Exercise();
         this.exercise.innitialize(this.props.match.params['l_id']);
         this.state = {
-            currentWord: '',
-        }
-        this.start();
+            currentWord: this.exercise.getCurrentWord(),
+            answer: ''
+        };
+    }
+
+
+    next() {
+        this.exercise.next(this.state.answer);
+        this.setState({currentWord: this.exercise.getCurrentWord()});
+        this.setState({answer: ''});
     }
 
     start() {
-        this.setState({currentWord: this.exercise.getCurrentWord()});
-    }
-
-    next(answer) {
-        this.exercise.next(answer);
         this.setState({currentWord: this.exercise.getCurrentWord()});
     }
 
@@ -31,20 +33,26 @@ export default class Flashcards extends React.Component {
                 <View>
                     <Text style={{margin: 20}}>Flashcards</Text>
                     <Text>{this.state.currentWord.question}</Text>
-                    <TextInput onChangeText={answer => this.setState({answer: answer})}>
+                    <TextInput 
+                        onChangeText={answer => this.setState({answer: answer})}
+                        value={this.state.answer}>
                     </TextInput>
-                    <TouchableOpacity style={styles.startTestBtnCon} onPress={answer => 
-                        this.next(answer)
+                    <TouchableOpacity style={styles.startTestBtnCon} onPress={ () => 
+                        this.next()
                     }>
-                    <Text style={styles.startTestBtn}>submit</Text>
-                </TouchableOpacity>
+                        <Text style={styles.startTestBtn}>submit</Text>
+                    </TouchableOpacity>
                 </View>
 
             );
         } else {
             return (
                 <View>
-                    <Text>loading</Text>
+                    <TouchableOpacity style={styles.startTestBtnCon} onPress={ () => 
+                        this.start()
+                    }>
+                        <Text style={styles.startTestBtn}>start</Text>
+                    </TouchableOpacity>
                 </View>
                 );
         }
