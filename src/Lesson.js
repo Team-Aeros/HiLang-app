@@ -3,10 +3,13 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-nati
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
+
 const maxEntryLength = 60;
+
 export default class Course extends React.Component {
     constructor(props){
         super(props);
+
         this.state = {
             id: '',
             name: '',
@@ -16,7 +19,8 @@ export default class Course extends React.Component {
             course_id: '',
             vocabulary: []
         }
-        this.getLesson(this.props.match.params['l_id']);
+
+        this.getLesson(this.props.navigation.getParam('id'));
     }
 
     getLesson(id: number) {
@@ -27,13 +31,15 @@ export default class Course extends React.Component {
                     category: response.category,
                     description: response.description,
                     grammar: response.grammar,
-                    course_id: response.course_id,
+                    course_id: response.course_id
                 });
+
                 let subArray = [];
-                for(entry of response.vocabulary){
+                for(entry of response.vocabulary) {
                     let native = '';
                     let translation = '';
                     let total = entry.native.length + entry.translation.length;
+
                     if(total >= maxEntryLength) {
                         nativePart = entry.native.length / total;
                         translationPart = entry.translation.length / total;
@@ -47,6 +53,7 @@ export default class Course extends React.Component {
                         native = entry.native;
                         translation = entry.translation;
                     }
+
                     subArray.push(
                         <View style={styles.vocItem} key={entry.id}>
                             <Text style={styles.vocEntry}>{native}</Text>
@@ -54,27 +61,35 @@ export default class Course extends React.Component {
                         </View>
                     );
                 }
+
+                subArray.push(
+                    <View style={styles.vocItem} key={entry.id}>
+                        <Text style={[styles.vocEntry, styles.bold]}>{native}</Text>
+                        <Text style={styles.vocEntry}>{translation}</Text>
+                    </View>
+                );
+
                 this.setState({
                     vocabulary: subArray
                 });
-            });
+        });
             
-        }
+    }
+
     render() {
         return (
-            <View style={styles.lessonDetContainer}>
-                <View>
-                    <Text>{this.state.name}</Text>
-                </View>
+            <View style={styles.container}>
+                <Text style={ styles.section_header }>{this.state.name}</Text>
                 <View>
                     <Text>{this.state.description}</Text>
                 </View>
+                <Text style={ styles.section_subheader }>Lesson content</Text>
+                <Text>{this.state.grammar}</Text>
+                <Text style={ styles.section_subheader }>Vocabulary</Text>
                 <ScrollView>
                     {this.state.vocabulary}
                 </ScrollView>
-                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => 
-                    this.props.history.push('/flashcards/' + this.state.id)
-                }>
+                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {state: this.state.id})}>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
             </View>

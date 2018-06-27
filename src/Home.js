@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Api from './Api.js';
+import UserPool from './UserPool.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
@@ -22,26 +23,30 @@ export default class Home extends React.Component {
         let subArray = [];
         Api.getInstance().callApi('api/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
             for(course of response) {
-                let id = course.pk;
+                const id = course.pk;
                 subArray.push(
-                        <TouchableOpacity key= {course.pk} onPress={() => this.props.history.push('/course/' + id)}>
-                            <Text style={styles.subscribedCourseCard }>{ course['fields']['name']}</Text>
-                        </TouchableOpacity>
-                    );
+                    <TouchableOpacity key= {course.pk} style={ styles.course_card } onPress={() => this.props.navigation.navigate('Course', {id: id})}>
+                        <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
+                        <Text>{ course['fields']['description'] }</Text>
+                        <Text style={ styles.course_card_author }>Created by Test</Text>
+                    </TouchableOpacity>
+                );
             }
+
             this.setState({subscribedCourses: subArray});
         });
 
     }
 
     render() {
-      return (
-        <View style = {{ padding: 30}}>
-            <Text>Hi {this.state.userName }</Text>
-            <ScrollView>
-                { this.state.subscribedCourses }
-            </ScrollView>
-        </View>
-      );
+        return (
+            <View style ={{ padding: 20}}>
+                <Text>Hi {this.state.userName }</Text>
+                <Text style={ styles.section_header }>My courses</Text>
+                <ScrollView>
+                    { this.state.subscribedCourses }
+                </ScrollView>
+            </View>
+        );
     }
 }

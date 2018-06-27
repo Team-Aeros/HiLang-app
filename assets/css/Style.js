@@ -3,7 +3,8 @@ import React, { Platform, StyleSheet, Dimensions } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: Platform.OS === 'ios' ? 20 : 24
+        marginTop: Platform.OS === 'ios' ? 20 : 24,
+        padding: 20
     },
 
     logInContainer: {
@@ -57,6 +58,39 @@ export default StyleSheet.create({
 
     },
 
+    course_card: {
+        padding: 20,
+        margin: 3,
+        borderRadius: 8,
+        backgroundColor: '#ff5f52'
+    },
+
+    course_card_title: {
+        fontWeight: 'bold'
+    },
+
+    course_card_author: {
+        textAlign: 'right',
+        fontSize: 9,
+        color: '#263238'
+    },
+
+    section_header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#263238',
+        marginTop: 5
+    },
+
+    section_subheader: {
+        fontSize: 23,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#263238',
+        marginTop: 5
+    },
+
     courseLessonCard: {
     	borderWidth: 3,
     	padding: 30,
@@ -69,39 +103,16 @@ export default StyleSheet.create({
     	margin: 10
     },
 
-    courseLessonContainer: {
-    	maxHeight: 100
-    },
-
-    courseDetContainer: {
-    	flex: 1,
-    	flexDirection: 'column',
-    	justifyContent: 'space-between'
-    },
-
-    lessonDetContainer: {
-    	margin: 5,
-    	flex: 1,
-    	flexDirection: 'column',
-    	justifyContent: 'space-between'
-    },
-
     vocItem: {
-    	flex: 1,
-    	flexDirection: 'row',
-    	margin: 2,
-    	justifyContent: 'center',
-    	alignItems: 'center',
+    	marginTop: 5,
+        marginLeft: 2,
+        marginRight: 2,
     	width: Dimensions.get('window').width - 12
     },
 
     vocEntry: {
     	padding: 3,
-    	borderWidth: 2,
-    	borderRadius: 10,
-    	borderColor: 'black',
     	margin: 2,
-    	alignSelf: 'center'
     },
 
     startTestBtn: {
@@ -117,4 +128,14 @@ export default StyleSheet.create({
     	borderRadius: 10,
     	overflow: 'hidden'
     },
+
+    bold: {
+        fontWeight: 'bold'
+    },
+
+    sidebar: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#efefef'
+    }
 });
