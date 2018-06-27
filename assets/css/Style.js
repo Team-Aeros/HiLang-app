@@ -180,7 +180,7 @@ export default StyleSheet.create({
 
     resultEntryRight: {
         marginLeft: 40
-    }
+    },
 
     resultEntry: {
         padding: 3,
@@ -190,7 +190,6 @@ export default StyleSheet.create({
     resultContainer: {
         padding: 5
     },
-
 
     courseDetContainer: {
         flex: 1,
