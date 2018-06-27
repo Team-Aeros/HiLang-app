@@ -20,6 +20,7 @@ export default class Result extends React.Component {
 
         this.state = {
             lessonName: this.props.navigation.getParam('name'),
+            lessonId: this.props.navigation.getParam('lessonId'),
             grade: this.calculateGrade(),
             rounds: rounds,
             timeTaken: this.props.navigation.getParam('time'),
@@ -87,6 +88,9 @@ export default class Result extends React.Component {
                     </Text>
                 </View>
                 { this.state.result }
+                <TouchableOpacity style={styles.standarBtnCon} onPress={() => this.props.navigation.navigate('Lesson', {id: this.state.lessonId})}>
+                    <Text style={styles.standarBtn}> Back to lesson </Text>
+                </TouchableOpacity>
             </ScrollView>
         );
     }

@@ -19,10 +19,12 @@ export default class Exercise{
         this.lessonName = "";
         this.timeInSeconds = 0;
         this.progress = 0;
+        this.lessonId = null;
     }
 
     innitialize(lesson_id) {
     	this.resetTimer();
+    	this.lessonId = lesson_id;
         Api.getInstance().callApi('api/lesson/' + lesson_id, 'POST', {}, response => {
         	this.lessonName = response.name;
             for(question of response.vocabulary) {
@@ -42,6 +44,10 @@ export default class Exercise{
             this.totalPoints = this.vocabulary.length;
             this.currentWord = this.vocabulary[0];
         });
+    }
+
+    isCorrect(answer) {
+    	return answer === this.currentWord.correctAnswer;
     }
 
     next(answer) {
@@ -127,7 +133,8 @@ export default class Exercise{
     		'totalPoints': this.totalPoints,
     		'rounds': this.round,
     		'time': this.timeInSeconds,
-    		'firstRound': this.firstRound
+    		'firstRound': this.firstRound,
+    		'id': this.lessonId
     	});
     }
 

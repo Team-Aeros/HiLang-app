@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Alert, ImageBackground } from 'react-native';
 import styles from '../assets/css/Style';
 import Exercise from './Exercise.js';
 import Api from './Api.js';
 import ProgressBar from 'react-native-progress/Bar';
+
+const timer = require('react-native-timer');
 
 export default class Flashcards extends React.Component {
     constructor(props){
@@ -14,16 +16,19 @@ export default class Flashcards extends React.Component {
             currentWord: this.exercise.getCurrentWord(),
             answer: '',
             lessonName: '',
-            progress: this.exercise.getProgress()
+            progress: this.exercise.getProgress(),
         };
     }
 
 
     next() {
-        this.exercise.next(this.state.currentWord.correctAnswer);
+        if(!this.exercise.isCorrect(this.state.answer)){
+            console.log("answer wrong, like to shake the white box");
+        } 
+        this.exercise.next(this.state.answer);
         this.setState({currentWord: this.exercise.getCurrentWord()});
-        this.setState({answer: ''});
         this.setState({progress: this.exercise.getProgress()});
+        this.setState({answer: ''});
     }
 
     start() {
@@ -37,31 +42,45 @@ export default class Flashcards extends React.Component {
     render() {
         if(this.state.currentWord != null) {
             return (
-                <View>
-                    <Text style={{margin: 20}}>Flashcards   {this.state.lessonName}</Text>
-                    <Text>{this.state.currentWord.question}</Text>
-                    <TextInput 
-                        onChangeText={answer => this.setState({answer: answer})}
-                        value={this.state.answer}>
-                    </TextInput>
-                    <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
-                    <TouchableOpacity style={styles.startTestBtnCon} onPress={ () => 
-                        this.next()
-                    }>
-                        <Text style={styles.startTestBtn}>submit</Text>
-                    </TouchableOpacity>
-                </View>
+                <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
+                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                        <View style={styles.testTitle}>
+                            <Text style={{margin: 10, fontSize: 30}}>{this.state.lessonName}</Text>
+                        </View>
+                        <View style={styles.testContainer}>
+                            <Text style={{margin: 10, fontSize: 15}}>{this.state.currentWord.question}</Text>
+                            <TextInput
+                                style={styles.testInput}
+                                label="Answer"
+                                placeholder="Enter your answer here"
+                                onChangeText={answer => this.setState({answer: answer})}
+                                value={this.state.answer}
+                                onSubmitEditing= { () => {
+                                    this.next();
+                                }}>
+                            </TextInput>
+                        </View>
+                        <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
+                        <TouchableOpacity style={styles.standarBtnCon} onPress={ () => 
+                            this.next()
+                        }>
+                            <Text style={styles.standarBtn}>submit</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
 
             );
         } else {
             return (
-                <View>
-                    <TouchableOpacity style={styles.startTestBtnCon} onPress={ () => 
-                        this.start()
-                    }>
-                        <Text style={styles.startTestBtn}>start</Text>
-                    </TouchableOpacity>
-                </View>
+                <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
+                <View style={styles.startExerciseScreen}>
+                        <TouchableOpacity style={styles.startExerciseBtnCon} onPress={ () => 
+                            this.start()
+                        }>
+                            <Text style={styles.standarBtn}>start</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
                 );
         }
     }

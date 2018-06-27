@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
@@ -13,7 +13,7 @@ export default class Course extends React.Component {
             description: '',
             author: '',
             authorId: '',
-            image: '',
+            image: 'https://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png',
             favorite: '',
             subscription: '',
             lessons: []
@@ -31,7 +31,8 @@ export default class Course extends React.Component {
                 author: response.author.name,
                 authorId: response.authorId,
                 favorite: response.favorite,
-                subscription: response.subscription
+                subscription: response.subscription,
+                image: response.image
             });
         });
     }
@@ -39,12 +40,11 @@ export default class Course extends React.Component {
     getLessons(id: number) {
         Api.getInstance().callApi('api/course/' + id + '/lessons', 'POST', {}, response => {
             let subArray = [];
-
             for(lesson of response) {
-                const id = lesson.pk;
+                let id = lesson.pk;
                 subArray.push(
                     <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
-                        this.props.navigation.navigate('Lesson', {id: id});
+                        this.props.navigation.navigate('Lesson', {id: id, img: this.state.image});
                     }}>
                         <Text>{lesson.fields['name']}</Text>
                     </TouchableOpacity>
@@ -53,24 +53,28 @@ export default class Course extends React.Component {
 
             this.setState({lessons: subArray});
         });
-            
     }
 
     render() {
         return (
-            <View style = {styles.courseDetContainer}>
-                <View style = {{ padding: 30}}>
-                    <Text>{this.state.name}</Text>
-                    <Text>by {this.state.author}</Text>
+            <ImageBackground style={styles.courseBackground} source={{uri: this.state.image}}>
+                <View style={styles.courseDetContainer}>
+                    <View>
+                        <View style={styles.courseHeader}>
+                            <Text style = {styles.section_header}>{this.state.name}</Text>
+                            <Text>by {this.state.author}</Text>
+                        </View>
+                        <View style={styles.courseContent}>
+                            <Text style={ styles.section_subheader }> {this.state.description} </Text>
+                        </View>
+                    </View>
+                    <View style={styles.courseBottom}>
+                        <ScrollView horizontal={true} pagingEnabled={true} height={50}>
+                            { this.state.lessons }
+                        </ScrollView>
+                    </View>
                 </View>
-                <View style={{padding: 10}}>
-                    <Text> {this.state.description} </Text>
-                </View>
-
-                <ScrollView style={styles.courseLessonContainer} horizontal={true} pagingEnabled={true}>
-                    { this.state.lessons }
-                </ScrollView>
-            </View>
+            </ImageBackground>
         );
     }
 }

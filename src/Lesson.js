@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
@@ -58,21 +58,23 @@ export default class Course extends React.Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
-                <Text style={ styles.section_header }>{this.state.name}</Text>
-                <View>
-                    <Text>{this.state.description}</Text>
-                </View>
-                <Text style={ styles.section_subheader }>Lesson content</Text>
-                <Text>{this.state.grammar}</Text>
-                <Text style={ styles.section_subheader }>Vocabulary</Text>
-
-                {this.state.vocabulary}
-
-                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id})}>
-                    <Text style={styles.startTestBtn}> Start test </Text>
-                </TouchableOpacity>
-            </ScrollView>
+            <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
+                <ScrollView style={styles.container}>
+                    <Text style={ styles.section_header }>{this.state.name}</Text>
+                    <View>
+                        <Text>{this.state.description}</Text>
+                    </View>
+                    <Text style={ styles.section_subheader }>Lesson content</Text>
+                    <Text>{this.state.grammar}</Text>
+                    <Text style={ styles.section_subheader }>Vocabulary</Text>
+    
+                    {this.state.vocabulary}
+    
+                    <TouchableOpacity style={styles.standarBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id, img: this.props.navigation.getParam('img')})}>
+                        <Text style={styles.standarBtn}> Start test </Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </ImageBackground>
         );
     }
 }

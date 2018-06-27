@@ -1,6 +1,7 @@
 import React from 'react';
 import Session from './src/Session.js';
 import Login from './src/Login.js';
+import Logout from './src/Logout.js';
 import Home from './src/Home.js';
 import Course from './src/Course.js';
 import Lesson from './src/Lesson.js';
@@ -11,10 +12,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Flashcards from './src/Flashcards.js';
 import Result from './src/Result.js';
 
+import AccountAreaNavigation from './src/navigation/AccountAreaNavigation.js';
+
 import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 
 const PreLoginStack = createStackNavigator({
-    Login: Login
+    Login: Login,
+    Logout: Logout
     /*Loading: {
         screen: LoginLoadingScreen,
         headerMode: 'none',
@@ -32,6 +36,7 @@ const CourseArea = createStackNavigator({
 });
 
 const AccountArea = createStackNavigator({
+    Navigation: AccountAreaNavigation,
     Profile: Profile
 });
 
