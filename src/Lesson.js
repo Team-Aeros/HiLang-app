@@ -62,13 +62,6 @@ export default class Course extends React.Component {
                     );
                 }
 
-                subArray.push(
-                    <View style={styles.vocItem} key={entry.id}>
-                        <Text style={[styles.vocEntry, styles.bold]}>{native}</Text>
-                        <Text style={styles.vocEntry}>{translation}</Text>
-                    </View>
-                );
-
                 this.setState({
                     vocabulary: subArray
                 });
@@ -89,7 +82,7 @@ export default class Course extends React.Component {
                 <ScrollView>
                     {this.state.vocabulary}
                 </ScrollView>
-                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {state: this.state.id})}>
+                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id})}>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
             </View>

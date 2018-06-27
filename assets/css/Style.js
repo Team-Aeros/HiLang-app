@@ -137,5 +137,38 @@ export default StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#efefef'
+    }, 
+
+    resultItemCorrect: {
+        backgroundColor: '#49d849',
+        borderRadius: 10,
+        marginTop: 5,
+        marginLeft: 2,
+        marginRight: 2,
+        width: Dimensions.get('window').width - 12
+    },
+
+    resultItemInCorrect: {
+        backgroundColor: '#c12222',
+        borderRadius: 10,
+        marginTop: 5,
+        marginLeft: 2,
+        marginRight: 2,
+        width: Dimensions.get('window').width - 12
+    },
+
+    resultEntry: {
+        padding: 3,
+        margin: 2,
+    },
+
+    resultContainer: {
+        flex: 1,
+        justifyContent: 'space-between'
+    }
+
+    courseDetContainer: {
+        flex: 1,
+        justifyContent: 'space-between'
     }
 });

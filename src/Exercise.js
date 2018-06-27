@@ -2,51 +2,83 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Alert 
 import styles from '../assets/css/Style';
 import Api from './Api.js';
 
+const timer = require('react-native-timer');
+
 export default class Exercise{
-    constructor(){
+    constructor(props){
+    	this.props = props;
         this.vocabulary = [];
         this.currentWord = null;
         this.incorrectWords = [];
+        this.firstRound = [];
         this.correctWords = [];
+        this.points = 0;
+        this.totalPoints = 0;
         this.answer = "";
+        this.round = 0;
+        this.lessonName = "";
+        this.timeInSeconds = 0;
+        this.progress = 0;
     }
 
     innitialize(lesson_id) {
+    	this.resetTimer();
         Api.getInstance().callApi('api/lesson/' + lesson_id, 'POST', {}, response => {
-            this.totalLength = response.vocabulary.length;
+        	this.lessonName = response.name;
             for(question of response.vocabulary) {
                 this.vocabulary.push({
                     id: question.id,
-                    question: question.translation,
+                    question: question.translation, 
                     correctAnswer: question.native,
                     sentenceStructure: question.sentenceStructure,
                     lesson_id: question.lesson_id
                 });
             }
+            let subArray = [];
+            for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
+            	subArray.push(word);
+            }
+            this.vocabulary = subArray.slice();
+            this.totalPoints = this.vocabulary.length;
             this.currentWord = this.vocabulary[0];
         });
     }
 
     next(answer) {
-    	console.log('correct answer: ' + this.currentWord.correctAnswer);
-    	console.log('answer: ' + answer);
         if(answer === this.currentWord.correctAnswer) {
-        	console.log("correct");
             this.correctWords.push(this.currentWord);
+            this.progress = this.correctWords.length / this.totalPoints;
+            if(this.round === 0) {
+            	this.firstRound.push({word: this.currentWord,
+            						  answer: answer,
+            						  correct: true
+            						});
+            	this.points++;
+            }
         } else {
-        	console.log("incorrect");
+        	if(this.round === 0) {
+        		this.firstRound.push({word: this.currentWord,
+        							  answer: answer,
+            						  correct: false
+            						});
+        	}
             this.incorrectWords.push(this.currentWord);
         }
 
         if(this.hasNext()) {
-        	console.log("hasnext");
             this.vocabulary.shift();
         } else if(this.incorrectWords.length === 0) {
-        	console.log("stop");
+        	this.round++;
         	this.exit();
         } else {
-        	console.log("copying incorrectWords");
         	this.vocabulary = this.incorrectWords.slice();
+        	this.incorrectWords = [];
+        	let subArray = [];
+            for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
+            	subArray.push(word);
+            }
+            this.vocabulary = subArray.slice();
+            this.round++;
         }
 
         this.currentWord = this.vocabulary[0];
@@ -60,8 +92,43 @@ export default class Exercise{
     	return this.currentWord;
     }
 
+    getLessonName() {
+    	return this.lessonName;
+    }
+
+    getProgress() {
+    	return this.progress;
+    }
+
+    getRound() {
+    	return this.round;
+    }
+
+    startTimer() {
+    	let startingTime = new Date();
+        this.clock = timer.setInterval('timer', () => {
+            this.timeInSeconds = Math.floor((new Date().getTime() - startingTime.getTime()) / 1000);
+        }, 1000);
+    }
+
+    resetTimer() {
+    	this.timeInSeconds = 0;
+    }
+
+    stopTimer() {
+    	timer.clearInterval(this.clock);
+    }
+
     exit() {
-    	Alert.alert("You have finished this exercise");
+    	this.stopTimer();
+    	this.props.navigation.navigate('Result', {
+    		'points': this.points, 
+    		'name': this.lessonName,
+    		'totalPoints': this.totalPoints,
+    		'rounds': this.round,
+    		'time': this.timeInSeconds,
+    		'firstRound': this.firstRound
+    	});
     }
 
 }
