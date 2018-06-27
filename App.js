@@ -4,6 +4,7 @@ import Login from './src/Login.js';
 import Home from './src/Home.js';
 import Course from './src/Course.js';
 import Lesson from './src/Lesson.js';
+import Flashcards from './src/Flashcards.js';
 import {NativeRouter, Switch, Route} from 'react-router-native';
 
 export default class App extends React.Component {
@@ -16,6 +17,7 @@ export default class App extends React.Component {
                     <Route exact path="/home" component={Home} />
                     <Route exact path="/course/:c_id" component={Course} />
                     <Route exact path="/lesson/:l_id" component={Lesson} />
+                    <Route exact path="/flashcards/:l_id" component={Flashcards} />
                 </Switch>
             </NativeRouter>
         );

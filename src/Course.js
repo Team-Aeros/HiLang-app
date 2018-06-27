@@ -28,7 +28,7 @@ export default class Course extends React.Component {
                 id: response.id,
                 name: response.name,
                 description: response.description,
-                author: response.author,
+                author: response.author.name,
                 authorId: response.authorId,
                 favorite: response.favorite,
                 subscription: response.subscription

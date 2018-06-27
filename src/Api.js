@@ -4,7 +4,7 @@ import Session from './Session.js';
 export default class Api {
 
 	static instance = null;
-	url = "http://82.72.82.219/api/";
+	url = "http://82.72.82.219:8000/";
 
 	static getInstance() {
 		if(Api.instance == null) {

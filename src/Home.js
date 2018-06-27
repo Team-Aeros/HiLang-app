@@ -9,12 +9,12 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: '1234',
+            userName: '',
             subsribedCourses: [],
         }
         let api = Api.getInstance();
         api.callApi('api/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
-            this.setState({userName: response[0]['fields']['name']});
+            this.setState({userName: response.name});
         });
         this.getSubscribedCourses();
     }
