@@ -27,4 +27,9 @@ export default class Session {
 	getUserId() {
 		return this.userId;
 	}
+
+	destroy() {
+		this.token = null;
+		this.userId = null;
+	}
 }

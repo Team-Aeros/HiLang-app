@@ -154,5 +154,12 @@ export default StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#efefef'
+    },
+
+    simple_list_item: {
+        padding: 15,
+        borderColor: '#dddddd',
+        borderBottomWidth: 1,
+        backgroundColor: '#fff'
     }
 });
