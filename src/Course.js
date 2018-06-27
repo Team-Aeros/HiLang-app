@@ -39,31 +39,34 @@ export default class Course extends React.Component {
     getLessons(id: number) {
         Api.getInstance().callApi('api/course/' + id + '/lessons', 'POST', {}, response => {
             let subArray = [];
-            for(lesson of response) {
-                let id = lesson.pk
-                subArray.push(
-                        <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => 
-                            this.props.history.push('/lesson/' + id)
-                        }>
-                            <Text> {lesson.fields['name']} </Text>
-                        </TouchableOpacity>
-                    );
-            }
-            this.setState({lessons: subArray});
 
+            for(lesson of response) {
+                const id = lesson.pk;
+                subArray.push(
+                    <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
+                        this.props.history.push('/lesson/' + id);
+                    }}>
+                        <Text>{lesson.fields['name']}</Text>
+                    </TouchableOpacity>
+                );
+            }
+
+            this.setState({lessons: subArray});
         });
             
     }
+
     render() {
         return (
-            <View style={styles.courseDetContainer}>
-                <View style={{ padding: 30}}>
-                   <Text>{this.state.name}</Text>
-                   <Text>by {this.state.author}</Text>
+            <View style = {styles.courseDetContainer}>
+                <View style = {{ padding: 30}}>
+                    <Text>{this.state.name}</Text>
+                    <Text>by {this.state.author}</Text>
                 </View>
                 <View style={{padding: 10}}>
                     <Text> {this.state.description} </Text>
                 </View>
+
                 <ScrollView style={styles.courseLessonContainer} horizontal={true} pagingEnabled={true}>
                     { this.state.lessons }
                 </ScrollView>

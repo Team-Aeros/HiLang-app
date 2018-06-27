@@ -7,6 +7,7 @@ const maxEntryLength = 60;
 export default class Course extends React.Component {
     constructor(props){
         super(props);
+
         this.state = {
             id: '',
             name: '',
@@ -16,6 +17,7 @@ export default class Course extends React.Component {
             course_id: '',
             vocabulary: []
         }
+
         this.getLesson(this.props.match.params['l_id']);
     }
 
@@ -54,21 +56,32 @@ export default class Course extends React.Component {
                         </View>
                     );
                 }
-                this.setState({
-                    vocabulary: subArray
-                });
+
+                subArray.push(
+                    <View style={styles.vocItem} key={entry.id}>
+                        <Text style={[styles.vocEntry, styles.bold]}>{native}</Text>
+                        <Text style={styles.vocEntry}>{translation}</Text>
+                    </View>
+                );
+            }
+
+            this.setState({
+                vocabulary: subArray
             });
+        });
             
-        }
+    }
+
     render() {
         return (
-            <View style={styles.lessonDetContainer}>
-                <View>
-                    <Text>{this.state.name}</Text>
-                </View>
+            <View style={styles.container}>
+                <Text style={ styles.section_header }>{this.state.name}</Text>
                 <View>
                     <Text>{this.state.description}</Text>
                 </View>
+                <Text style={ styles.section_subheader }>Lesson content</Text>
+                <Text>{this.state.grammar}</Text>
+                <Text style={ styles.section_subheader }>Vocabulary</Text>
                 <ScrollView>
                     {this.state.vocabulary}
                 </ScrollView>
