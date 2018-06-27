@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-nati
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
-
+const maxEntryLength = 60;
 export default class Course extends React.Component {
     constructor(props){
         super(props);
@@ -34,15 +34,15 @@ export default class Course extends React.Component {
                     let native = '';
                     let translation = '';
                     let total = entry.native.length + entry.translation.length;
-                    if(total > 63) {
+                    if(total >= maxEntryLength) {
                         nativePart = entry.native.length / total;
                         translationPart = entry.translation.length / total;
 
-                        nativeMaxLength = (nativePart * 63) - 3;
-                        translationMaxLength = (translationPart * 63) - 3;
+                        nativeMaxLength = (nativePart * maxEntryLength) - 3;
+                        translationMaxLength = (translationPart * maxEntryLength) - 3;
 
-                        native = entry.native.slice(0,nativeMaxLength) + '...';
-                        translation = entry.translation.slice(0,translationMaxLength) + '...';
+                        native = entry.native.slice(0,nativeMaxLength) + ' ...';
+                        translation = entry.translation.slice(0,translationMaxLength) + ' ...';
                     } else {
                         native = entry.native;
                         translation = entry.translation;
@@ -72,7 +72,9 @@ export default class Course extends React.Component {
                 <ScrollView>
                     {this.state.vocabulary}
                 </ScrollView>
-                <TouchableOpacity style={styles.startTestBtnCon}>
+                <TouchableOpacity style={styles.startTestBtnCon} onPress={() => 
+                    this.props.history.push('/flashcards/' + this.state.id)
+                }>
                     <Text style={styles.startTestBtn}> Start test </Text>
                 </TouchableOpacity>
             </View>
