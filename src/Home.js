@@ -25,7 +25,7 @@ export default class Home extends React.Component {
             for(course of response) {
                 const id = course.pk;
                 subArray.push(
-                    <TouchableOpacity key= {course.pk} style={ styles.course_card } onPress={() => this.props.history.push('/course/' + id)}>
+                    <TouchableOpacity key= {course.pk} style={ styles.course_card } onPress={() => this.props.navigation.navigate('Course', {id: id})}>
                         <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
                         <Text>{ course['fields']['description'] }</Text>
                         <Text style={ styles.course_card_author }>Created by Test</Text>

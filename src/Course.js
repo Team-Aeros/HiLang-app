@@ -18,8 +18,8 @@ export default class Course extends React.Component {
             subscription: '',
             lessons: []
         }
-        this.getCourse(this.props.match.params['c_id']);
-        this.getLessons(this.props.match.params['c_id']);
+        this.getCourse(this.props.navigation.getParam('id'));
+        this.getLessons(this.props.navigation.getParam('id'));
     }
 
     getCourse(id: number) {
@@ -44,7 +44,7 @@ export default class Course extends React.Component {
                 const id = lesson.pk;
                 subArray.push(
                     <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
-                        this.props.history.push('/lesson/' + id);
+                        this.props.navigation.navigate('Lesson', {id: id});
                     }}>
                         <Text>{lesson.fields['name']}</Text>
                     </TouchableOpacity>
