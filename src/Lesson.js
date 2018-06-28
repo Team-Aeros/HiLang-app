@@ -4,7 +4,7 @@ import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
-const maxEntryLength = 60;
+import { MarkdownView} from 'react-native-markdown-view';
 
 export default class Course extends React.Component {
 
@@ -68,7 +68,7 @@ export default class Course extends React.Component {
                 <View style={styles.courseContent}>
                     <Text>{this.state.description}</Text>
                     <Text style={ styles.section_subheader }>Lesson content</Text>
-                    <Text>{this.state.grammar}</Text>
+                    <MarkdownView>{this.state.grammar}</MarkdownView>
                     <Text style={ styles.section_subheader }>Vocabulary</Text>
 
                     {this.state.vocabulary}

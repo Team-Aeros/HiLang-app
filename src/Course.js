@@ -5,6 +5,8 @@ import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 import { request_confirmation } from './Util.js'
 
+import { MarkdownView} from 'react-native-markdown-view';
+
 export default class Course extends React.Component {
     constructor(props){
         super(props);
@@ -104,7 +106,7 @@ export default class Course extends React.Component {
                 </ImageBackground>
                 <View style={styles.courseContent}>
                     <Text style={ styles.section_subheader }>About this course</Text>
-                    <Text>{this.state.description}</Text>
+                    <MarkdownView>{this.state.description}</MarkdownView>
 
                     <Text style={ styles.section_subheader }>Lessons</Text>
                     <View>
