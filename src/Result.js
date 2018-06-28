@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import styles from '../assets/css/Style';
 import Api from './Api.js';
+import Session from './Session.js';
 
 export default class Result extends React.Component {
     constructor(props){
@@ -26,6 +27,16 @@ export default class Result extends React.Component {
             timeTaken: this.props.navigation.getParam('time'),
             result: this.handleWords()
         };
+        this.setAsCompleted();
+    }
+
+    setAsCompleted() {
+        let sendData = {
+            user_id: Session.getInstance().getUserId(),
+            lesson_id: this.state.lessonId,
+            grade: this.state.grade
+      }
+      Api.getInstance().callApi('api/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed', sendData, 'POST');
     }
 
     calculateGrade() {
@@ -37,7 +48,6 @@ export default class Result extends React.Component {
     handleWords() {
         let result = [];
         for(words of this.props.navigation.getParam('firstRound')) {
-            console.log(words);
             if(words.correct) {
                result.push(
                     <View key={words.word.id} style={styles.resultItemCorrect}>

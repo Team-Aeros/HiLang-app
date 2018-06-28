@@ -10,21 +10,48 @@ const timer = require('react-native-timer');
 export default class Flashcards extends React.Component {
     constructor(props){
         super(props);
-        this.exercise = new Exercise(this.props);
+        this.exercise = new Exercise(this.props, this.props.navigation.getParam('revert'));
         this.exercise.innitialize(this.props.navigation.getParam('id'));
         this.state = {
             currentWord: this.exercise.getCurrentWord(),
             answer: '',
             lessonName: '',
             progress: this.exercise.getProgress(),
+            containerStyle: styles.testContainer,
+            disableSubmit: false
         };
     }
 
 
-    next() {
+    check() {
         if(!this.exercise.isCorrect(this.state.answer)){
-            console.log("answer wrong, like to shake the white box");
-        } 
+            this.setState({
+                containerStyle: styles.errorContainer,
+                disableSubmit: true
+            });
+            timer.setTimeout(this, 'error', () => {
+                this.setState({
+                    containerStyle: styles.testContainer,
+                    disableSubmit: false
+                });
+                this.next();
+            }, 2000);
+        }else {
+            this.setState({
+                containerStyle: styles.correctContainer,
+                disableSubmit: true
+            });
+            timer.setTimeout(this, 'correct', () => {
+                this.setState({
+                    containerStyle: styles.testContainer,
+                    disableSubmit: false
+                });
+                this.next();
+            }, 2000);
+        }   
+    }
+
+    next() {
         this.exercise.next(this.state.answer);
         this.setState({currentWord: this.exercise.getCurrentWord()});
         this.setState({progress: this.exercise.getProgress()});
@@ -47,8 +74,8 @@ export default class Flashcards extends React.Component {
                         <View style={styles.testTitle}>
                             <Text style={{margin: 10, fontSize: 30}}>{this.state.lessonName}</Text>
                         </View>
-                        <View style={styles.testContainer}>
-                            <Text style={{margin: 10, fontSize: 15}}>{this.state.currentWord.question}</Text>
+                        <View style={this.state.containerStyle}>
+                            <Text style={styles.testQuestion}>{this.state.currentWord.question}</Text>
                             <TextInput
                                 style={styles.testInput}
                                 label="Answer"
@@ -56,13 +83,16 @@ export default class Flashcards extends React.Component {
                                 onChangeText={answer => this.setState({answer: answer})}
                                 value={this.state.answer}
                                 onSubmitEditing= { () => {
-                                    this.next();
+                                    this.check();
                                 }}>
-                            </TextInput>
+                            </TextInput>  
                         </View>
-                        <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
-                        <TouchableOpacity style={styles.standarBtnCon} onPress={ () => 
-                            this.next()
+                        <View style={styles.progressBar}>
+                            <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
+                        </View>
+                        
+                        <TouchableOpacity disable={this.state.disableSubmit} style={styles.standarBtnCon} onPress={ () => 
+                            this.check()
                         }>
                             <Text style={styles.standarBtn}>submit</Text>
                         </TouchableOpacity>

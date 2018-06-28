@@ -5,7 +5,7 @@ import Api from './Api.js';
 const timer = require('react-native-timer');
 
 export default class Exercise{
-    constructor(props){
+    constructor(props, revert){
     	this.props = props;
         this.vocabulary = [];
         this.currentWord = null;
@@ -20,6 +20,7 @@ export default class Exercise{
         this.timeInSeconds = 0;
         this.progress = 0;
         this.lessonId = null;
+        this.revert = revert
     }
 
     innitialize(lesson_id) {
@@ -28,13 +29,24 @@ export default class Exercise{
         Api.getInstance().callApi('api/lesson/' + lesson_id, 'POST', {}, response => {
         	this.lessonName = response.name;
             for(question of response.vocabulary) {
-                this.vocabulary.push({
-                    id: question.id,
-                    question: question.translation, 
-                    correctAnswer: question.native,
-                    sentenceStructure: question.sentenceStructure,
-                    lesson_id: question.lesson_id
-                });
+            	if(!this.revert) {
+            		this.vocabulary.push({
+                    	id: question.id,
+                    	question: question.translation, 
+                    	correctAnswer: question.native,
+                    	sentenceStructure: question.sentenceStructure,
+                    	lesson_id: question.lesson_id
+                	});
+            	} else {
+            		this.vocabulary.push({
+                    	id: question.id,
+                    	question: question.native, 
+                    	correctAnswer: question.translation,
+                    	sentenceStructure: question.sentenceStructure,
+                    	lesson_id: question.lesson_id
+                	});
+            	}
+                
             }
             let subArray = [];
             for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
