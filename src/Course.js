@@ -13,7 +13,7 @@ export default class Course extends React.Component {
             description: '',
             author: '',
             authorId: '',
-            image: 'https://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png',
+            image: 'http://flyingthenest.tv/wp-content/uploads/2017/05/sergey-pesterev-223638.jpg',
             favorite: '',
             subscription: '',
             lessons: [],
