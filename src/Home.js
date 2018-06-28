@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import Api from './Api.js';
-import UserPool from './UserPool.js';
+import LazyUserLoader from './LazyUserLoader.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
 export default class Home extends React.Component {
+
+    _lazyUserLoader;
 
     static navigationOptions = {
         title: 'Dashboard'
@@ -16,11 +18,14 @@ export default class Home extends React.Component {
 
         this.state = {
             userName: '',
-            subsribedCourses: [],
+            subscribedCourses: [],
+            authors: []
         }
 
+        this._lazyUserLoader = LazyUserLoader.getInstance();
+
         let api = Api.getInstance();
-        api.callApi('api/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
+        api.callApi('/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
             this.setState({userName: response.name});
         });
 
@@ -29,16 +34,26 @@ export default class Home extends React.Component {
 
     getSubscribedCourses() {
         let subArray = [];
-        Api.getInstance().callApi('api/courses/', 'POST', {}, response => {
-            for(course of response) {
+
+        Api.getInstance().callApi('/courses/', 'POST', {}, response => {
+            for(let course of response) {
                 const id = course.pk;
-                subArray.push(
-                    <TouchableOpacity key= {course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: id})}>
-                        <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
-                        <Text>{ course['fields']['description'] }</Text>
-                        <Text style={ styles.course_card_author }>Created by Test</Text>
-                    </TouchableOpacity>
-                );
+                const author_id = course['fields']['user'];
+
+                this.setState({
+                    authors: [...this.state.authors, this.state.authors[author_id]]
+                });
+
+                this._lazyUserLoader.executeOnUser(author_id, user => {
+                    let authors = this.state.authors;
+                    authors[author_id] = user.name;
+
+                    this.setState({
+                        authors: [...authors]
+                    });
+                });
+
+                subArray.push(course);
             }
 
             this.setState({subscribedCourses: subArray});
@@ -49,10 +64,20 @@ export default class Home extends React.Component {
     render() {
         return (
             <ScrollView>
-                <View style ={{ padding: 20}}>
+                <View style={{ padding: 20}}>
                     <Text style={ styles.section_header }>Hello, { this.state.userName }</Text>
                     <Text style={ styles.section_subheader }>Courses you've created</Text>
-                    { this.state.subscribedCourses }
+                    { 
+                        this.state.subscribedCourses.map((course, key) => {
+                            return (
+                                <TouchableOpacity key={course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: key})}>
+                                    <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
+                                    <Text>{ course['fields']['description'] }</Text>
+                                    <Text style={ styles.course_card_author }>Created by { this.state.authors[course['fields']['user']] }</Text>
+                                </TouchableOpacity>
+                            );
+                        }) 
+                    }
                 </View>
             </ScrollView>
         );

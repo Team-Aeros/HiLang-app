@@ -23,7 +23,7 @@ export default class Course extends React.Component {
     }
 
     getCourse(id: number) {
-        Api.getInstance().callApi('api/course/' + id + '/', 'POST', {}, response => {
+        Api.getInstance().callApi('/course/' + id + '/', 'POST', {}, response => {
             this.setState({
                 id: response.id,
                 name: response.name,
@@ -38,7 +38,7 @@ export default class Course extends React.Component {
     }
 
     getLessons(id: number) {
-        Api.getInstance().callApi('api/course/' + id + '/lessons', 'POST', {}, response => {
+        Api.getInstance().callApi('/course/' + id + '/lessons', 'POST', {}, response => {
             let subArray = [];
             for(lesson of response) {
                 let id = lesson.pk;

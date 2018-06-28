@@ -29,29 +29,29 @@ export default class Course extends React.Component {
     }
 
     getLesson(id: number) {
-        Api.getInstance().callApi('api/lesson/' + id, 'POST', {}, response => {
-                this.setState({
-                    id: response.id,
-                    name: response.name,
-                    category: response.category,
-                    description: response.description,
-                    grammar: response.grammar,
-                    course_id: response.course_id
-                });
+        Api.getInstance().callApi('/lesson/' + id, 'POST', {}, response => {
+            this.setState({
+                id: response.id,
+                name: response.name,
+                category: response.category,
+                description: response.description,
+                grammar: response.grammar,
+                course_id: response.course_id
+            });
 
-                let subArray = [];
-                for(entry of response.vocabulary) {
-                    subArray.push(
-                        <View style={[styles.list_item]} key={entry.id}>
-                            <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
-                            <Text style={styles.vocEntry}>{entry.translation}</Text>
-                        </View>
-                    );
-                }
+            let subArray = [];
+            for(entry of response.vocabulary) {
+                subArray.push(
+                    <View style={[styles.list_item]} key={entry.id}>
+                        <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
+                        <Text style={styles.vocEntry}>{entry.translation}</Text>
+                    </View>
+                );
+            }
 
-                this.setState({
-                    vocabulary: subArray
-                });
+            this.setState({
+                vocabulary: subArray
+            });
         });
             
     }
