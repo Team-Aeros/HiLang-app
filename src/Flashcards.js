@@ -24,7 +24,7 @@ export default class Flashcards extends React.Component {
 
 
     check() {
-        if(!this.exercise.isCorrect(this.state.answer)){
+        if(!this.exercise.isCorrect(this.state.currentWord.correctAnswer)){
             this.setState({
                 containerStyle: styles.errorContainer,
                 disableSubmit: true
@@ -52,7 +52,7 @@ export default class Flashcards extends React.Component {
     }
 
     next() {
-        this.exercise.next(this.state.answer);
+        this.exercise.next(this.state.currentWord.correctAnswer);
         this.setState({currentWord: this.exercise.getCurrentWord()});
         this.setState({progress: this.exercise.getProgress()});
         this.setState({answer: ''});
@@ -70,33 +70,33 @@ export default class Flashcards extends React.Component {
         if(this.state.currentWord != null) {
             return (
                 <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-                        <View style={styles.testTitle}>
-                            <Text style={{margin: 10, fontSize: 30}}>{this.state.lessonName}</Text>
+                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                            <View style={styles.testTitle}>
+                                <Text style={{margin: 10, fontSize: 30}}>{this.state.lessonName}</Text>
+                            </View>
+                            <View style={this.state.containerStyle}>
+                                <Text style={styles.testQuestion}>{this.state.currentWord.question}</Text>
+                                <TextInput
+                                    style={styles.testInput}
+                                    label="Answer"
+                                    placeholder="Enter your answer here"
+                                    onChangeText={answer => this.setState({answer: answer})}
+                                    value={this.state.answer}
+                                    onSubmitEditing= { () => {
+                                        this.check();
+                                    }}>
+                                </TextInput>  
+                            </View>
+                            <View style={styles.progressBar}>
+                                <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
+                            </View>
+                            
+                            <TouchableOpacity disable={this.state.disableSubmit} style={styles.standardBtnCon} onPress={ () => 
+                                this.check()
+                            }>
+                                <Text style={styles.standardBtn}>submit</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={this.state.containerStyle}>
-                            <Text style={styles.testQuestion}>{this.state.currentWord.question}</Text>
-                            <TextInput
-                                style={styles.testInput}
-                                label="Answer"
-                                placeholder="Enter your answer here"
-                                onChangeText={answer => this.setState({answer: answer})}
-                                value={this.state.answer}
-                                onSubmitEditing= { () => {
-                                    this.check();
-                                }}>
-                            </TextInput>  
-                        </View>
-                        <View style={styles.progressBar}>
-                            <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
-                        </View>
-                        
-                        <TouchableOpacity disable={this.state.disableSubmit} style={styles.standarBtnCon} onPress={ () => 
-                            this.check()
-                        }>
-                            <Text style={styles.standarBtn}>submit</Text>
-                        </TouchableOpacity>
-                    </View>
                 </ImageBackground>
 
             );

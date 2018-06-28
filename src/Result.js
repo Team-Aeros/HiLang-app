@@ -21,7 +21,7 @@ export default class Result extends React.Component {
 
         this.state = {
             lessonName: this.props.navigation.getParam('name'),
-            lessonId: this.props.navigation.getParam('lessonId'),
+            lessonId: this.props.navigation.getParam('id'),
             grade: this.calculateGrade(),
             rounds: rounds,
             timeTaken: this.props.navigation.getParam('time'),
@@ -35,8 +35,9 @@ export default class Result extends React.Component {
             user_id: Session.getInstance().getUserId(),
             lesson_id: this.state.lessonId,
             grade: this.state.grade
-      }
-      Api.getInstance().callApi('/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed', sendData, 'POST');
+        }
+        console.log('/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed');
+        Api.getInstance().callApi('/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed', 'POST', sendData);
     }
 
     calculateGrade() {
