@@ -31,10 +31,14 @@ export default class Profile extends React.Component {
 
     render() {
         return (
-            <View>
-                <View>
-                    <Text>E-mail:   {this.state.email}</Text>
-                    <Text>Username: {this.state.name}</Text>
+            <View style={styles.header}>
+                <View style={styles.card}>
+                    <Text>E-mail:   </Text>
+                    <Text>Username: </Text>
+                </View>
+                <View style={styles.card}>
+                    <Text>{this.state.email}</Text>
+                    <Text>{this.state.name}</Text>
                 </View>
             </View>
         );

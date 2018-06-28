@@ -211,12 +211,26 @@ export default StyleSheet.create({
         height: Dimensions.get('window').height / 10
     },
 
+    header: {
+        flex: 1,
+        flexDirection: 'row',
+        borderColor: '#dddddd',
+        borderWidth: 3,
+    },
+
     simple_list_item: {
         padding: 15,
         borderColor: '#dddddd',
         borderBottomWidth: 1,
         backgroundColor: '#fff'
-    }, 
+    },
+
+    card: {
+        padding: 15,
+        backgroundColor: '#fff',
+        height: 100,
+        alignItems: 'flex-start'
+    },
 
     startExerciseScreen: {
         alignItems: 'center',

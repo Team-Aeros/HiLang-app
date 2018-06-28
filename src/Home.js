@@ -33,7 +33,7 @@ export default class Home extends React.Component {
     getSubscribedCourses() {
         let subArray = [];
 
-        Api.getInstance().callApi('/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
+        Api.getInstance().callApi('/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => { 
             for(let course of response) {
                 const id = course.pk;
                 const author_id = course['fields']['user'];
