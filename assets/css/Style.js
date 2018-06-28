@@ -144,13 +144,13 @@ export default StyleSheet.create({
         width: 130
     },
 
-    standarBtn: {
+    standardBtn: {
     	color: 'white',
     	fontSize: 20,
     	textAlign: 'center'
     }, 
 
-    standarBtnCon: {
+    standardBtnCon: {
     	margin: 30,
     	backgroundColor: 'green',
     	padding: 15,
@@ -212,12 +212,26 @@ export default StyleSheet.create({
         height: Dimensions.get('window').height / 10
     },
 
+    header: {
+        flex: 1,
+        flexDirection: 'row',
+        borderColor: '#dddddd',
+        borderWidth: 3,
+    },
+
     simple_list_item: {
         padding: 15,
         borderColor: '#dddddd',
         borderBottomWidth: 1,
         backgroundColor: '#fff'
-    }, 
+    },
+
+    card: {
+        padding: 15,
+        backgroundColor: '#fff',
+        height: 100,
+        alignItems: 'flex-start'
+    },
 
     startExerciseScreen: {
         alignItems: 'center',
@@ -248,7 +262,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff'
     },
 
-    courseDetContainer: {
+    flexColumn: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -356,6 +370,24 @@ export default StyleSheet.create({
         alignSelf: 'center'
     },
 
+    searchdBtnCon: {
+        margin: 30,
+        backgroundColor: 'green',
+        padding: 15,
+        borderRadius: 10,
+        overflow: 'hidden',
+        width: 100
+    },
+
+    browseBar: {
+        backgroundColor: '#fff',
+        padding: 20
+    },
+
+    browseInput: {
+        width: 250,
+        fontSize: 20
+    },
     shadow: {
         shadowColor: '#595959',
         shadowOffset: {

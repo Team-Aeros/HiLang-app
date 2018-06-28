@@ -15,7 +15,7 @@ export default class AccountAreaNavigation extends React.Component {
             navigationItems: [
                 {
                     label: 'View profile',
-                    href: '',
+                    href: 'Profile',
                     params: {}
                 },
                 {

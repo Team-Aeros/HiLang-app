@@ -98,9 +98,8 @@ export default class Course extends React.Component {
                             </Text>
                         </View>
                     </View>
-
-                    <TouchableOpacity style={styles.standarBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id, img: this.props.navigation.getParam('img'), revert: this.state.revert})}>
-                        <Text style={styles.standarBtn}> Start test </Text>
+                    <TouchableOpacity style={styles.standardBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id, img: this.props.navigation.getParam('img'), revert: this.state.revert})}>
+                        <Text style={styles.standardBtn}> Start test </Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
