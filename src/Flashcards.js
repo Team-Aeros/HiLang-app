@@ -107,7 +107,7 @@ export default class Flashcards extends React.Component {
                         <TouchableOpacity style={styles.startExerciseBtnCon} onPress={ () => 
                             this.start()
                         }>
-                            <Text style={styles.standarBtn}>start</Text>
+                            <Text style={styles.standardBtn}>start</Text>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

@@ -143,13 +143,13 @@ export default StyleSheet.create({
         width: 130
     },
 
-    standarBtn: {
+    standardBtn: {
     	color: 'white',
     	fontSize: 20,
     	textAlign: 'center'
     }, 
 
-    standarBtnCon: {
+    standardBtnCon: {
     	margin: 30,
     	backgroundColor: 'green',
     	padding: 15,
@@ -248,7 +248,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff'
     },
 
-    courseDetContainer: {
+    flexColumn: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -354,5 +354,24 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width - 50,
         backgroundColor: '#f9fff9',
         alignSelf: 'center'
+    },
+
+    searchdBtnCon: {
+        margin: 30,
+        backgroundColor: 'green',
+        padding: 15,
+        borderRadius: 10,
+        overflow: 'hidden',
+        width: 100
+    },
+
+    browseBar: {
+        backgroundColor: '#fff',
+        padding: 20
+    },
+
+    browseInput: {
+        width: 250,
+        fontSize: 20
     }
 });

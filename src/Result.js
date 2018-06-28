@@ -36,7 +36,7 @@ export default class Result extends React.Component {
             lesson_id: this.state.lessonId,
             grade: this.state.grade
       }
-      Api.getInstance().callApi('api/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed', sendData, 'POST');
+      Api.getInstance().callApi('/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed', sendData, 'POST');
     }
 
     calculateGrade() {
@@ -98,8 +98,8 @@ export default class Result extends React.Component {
                     </Text>
                 </View>
                 { this.state.result }
-                <TouchableOpacity style={styles.standarBtnCon} onPress={() => this.props.navigation.navigate('Lesson', {id: this.state.lessonId})}>
-                    <Text style={styles.standarBtn}> Back to lesson </Text>
+                <TouchableOpacity style={styles.standardBtnCon} onPress={() => this.props.navigation.navigate('Lesson', {id: this.state.lessonId})}>
+                    <Text style={styles.standardBtn}> Back to lesson </Text>
                 </TouchableOpacity>
             </ScrollView>
         );
