@@ -41,12 +41,13 @@ export default class CourseList extends React.Component {
         Api.getInstance().callApi('/courses/public', 'POST', {}, response => {
             let holderArray = [];
             for(course of response) {
+                let id = course.pk;
                 let author = "";
                 Api.getInstance().callApi('/user/' + course.fields.user + '/', 'POST', {}, response => {
                     author = response.name;
                 });
                 holderArray.push(
-                    <TouchableOpacity key={course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: course.pk})}>
+                    <TouchableOpacity key={course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: id})}>
                         <Text style={ styles.course_card_title }>{ course.fields.name}</Text>
                         <Text>{ course.fields.description }</Text>
                         <Text style={ styles.course_card_author }>Created by { author }</Text>

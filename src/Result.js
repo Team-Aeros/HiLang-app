@@ -36,7 +36,6 @@ export default class Result extends React.Component {
             lesson_id: this.state.lessonId,
             grade: this.state.grade
         }
-        console.log('/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed');
         Api.getInstance().callApi('/lesson/' + sendData.user_id + '/' + sendData.lesson_id + '/completed', 'POST', sendData);
     }
 
