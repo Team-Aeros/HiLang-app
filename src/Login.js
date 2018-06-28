@@ -28,7 +28,7 @@ export default class Login extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             }
-            api.apiLogin('api/login', 'POST', userData, response => {
+            api.apiLogin('/login', 'POST', userData, response => {
                 if(Object.keys(response).length != 0) {
                     Session.getInstance().saveToken(response['token']);
                     Session.getInstance().saveUserId(response['user_id']);

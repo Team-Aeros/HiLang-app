@@ -26,7 +26,7 @@ export default class Exercise{
     innitialize(lesson_id) {
     	this.resetTimer();
     	this.lessonId = lesson_id;
-        Api.getInstance().callApi('api/lesson/' + lesson_id, 'POST', {}, response => {
+        Api.getInstance().callApi('/lesson/' + lesson_id, 'POST', {}, response => {
         	this.lessonName = response.name;
             for(question of response.vocabulary) {
             	if(!this.revert) {

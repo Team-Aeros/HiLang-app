@@ -111,7 +111,7 @@ export default class Flashcards extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
-                );
+            );
         }
     }
 }
