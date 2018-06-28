@@ -4,7 +4,7 @@ import Session from './Session.js';
 export default class Api {
 
 	static instance = null;
-	url = "http://82.72.82.219/api/";
+	url = "http://82.72.82.219/api";
 
 	static getInstance() {
 		if(Api.instance == null) {
@@ -20,7 +20,7 @@ export default class Api {
             user_id: Session.getInstance().getUserId(),
             params: data
 		}
-		fetch(this.url+action, {
+		fetch(this.url + '/api' + action, {
 			method: method,
 			headers: {
 				Accept: 'application/json',
@@ -35,7 +35,7 @@ export default class Api {
 	}
 
 	apiLogin(action, method, data, callBack = response => console.log(response)) {
-		fetch(this.url+action, {
+		fetch(this.url + '/api' + action, {
 			method: method,
 			headers: {
 				Accept: 'application/json',
