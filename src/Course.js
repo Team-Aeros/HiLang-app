@@ -16,7 +16,9 @@ export default class Course extends React.Component {
             image: 'https://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png',
             favorite: '',
             subscription: '',
-            lessons: []
+            lessons: [],
+            native: '',
+            translation: ''
         }
         this.getCourse(this.props.navigation.getParam('id'));
         this.getLessons(this.props.navigation.getParam('id'));
@@ -24,6 +26,17 @@ export default class Course extends React.Component {
 
     getCourse(id: number) {
         Api.getInstance().callApi('/course/' + id + '/', 'POST', {}, response => {
+            Api.getInstance().callApi('/language/' + response.native_lang + '/', 'POST', {}, nativeResponse => {
+                this.setState({
+                    native: nativeResponse[0].fields.name
+                });
+            });
+            Api.getInstance().callApi('/language/' + response.trans_lang + '/', 'POST', {}, transResponse => {
+                this.setState({
+                    translation: transResponse[0].fields.name
+                });
+            });
+
             this.setState({
                 id: response.id,
                 name: response.name,
@@ -44,7 +57,7 @@ export default class Course extends React.Component {
                 let id = lesson.pk;
                 subArray.push(
                     <TouchableOpacity style={styles.list_item} key={lesson.pk} onPress={() => {
-                        this.props.navigation.navigate('Lesson', {id: id, img: this.state.image});
+                        this.props.navigation.navigate('Lesson', {id: id, img: this.state.image, native: this.state.native, translation: this.state.translation});
                     }}>
                         <Text>{lesson.fields['name']}</Text>
                     </TouchableOpacity>
