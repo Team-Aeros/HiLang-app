@@ -136,6 +136,13 @@ export default StyleSheet.create({
         marginTop: 0
     },
 
+    languageName: {
+        padding: 3,
+        margin: 2,
+        marginTop: 0,
+        width: 130
+    },
+
     standarBtn: {
     	color: 'white',
     	fontSize: 20,
@@ -238,13 +245,19 @@ export default StyleSheet.create({
         margin: 10,
         borderWidth: 1,
         borderColor: '#747574',
-        backgroundColor: '#f9fff9'
+        backgroundColor: '#fff'
     },
 
     courseDetContainer: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
+    },
+
+    flexRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
 
     courseBottom: {
@@ -259,6 +272,7 @@ export default StyleSheet.create({
         backgroundColor: '#f9fff9',
         alignItems: 'center',
         alignSelf: 'center',
+        marginBottom: 20
     },
 
     testContainer: {
@@ -268,13 +282,77 @@ export default StyleSheet.create({
         backgroundColor: '#f9fff9',
         alignItems: 'center',
         alignSelf: 'center',
-        width: 200
+        width: 300,
+        height: 100,
+        flex: 1,
+        flexDirection: 'column',
+        marginBottom: 30,
+        paddingTop: 50,
+        paddingBottom: 50,
+    },
+
+    errorContainer: {
+        borderWidth: 3,
+        borderColor: '#747574',
+        borderRadius: 10,
+        backgroundColor: '#c62d2dac',
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: 300,
+        height: 100,
+        flex: 1,
+        flexDirection: 'column',
+        marginBottom: 30,
+        paddingTop: 50,
+        paddingBottom: 50,
+    },
+
+    correctContainer: {
+        borderWidth: 3,
+        borderColor: '#747574',
+        borderRadius: 10,
+        backgroundColor: '#21bc24ac',
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: 300,
+        height: 100,
+        flex: 1,
+        flexDirection: 'column',
+        marginBottom: 30,
+        paddingTop: 50,
+        paddingBottom: 50,
+    },
+
+
+    testQuestion: {
+        margin: 10,
+        fontSize: 20,
+        marginBottom: 100
     },
 
     testInput: {
         alignSelf: 'center',
         letterSpacing: -1,
-        fontSize: 15,
-        width: 100
+        fontSize: 20,
+        width: 230,
+        padding: 5
+    },
+
+    toggleRevert: {
+        borderWidth: 2,
+        borderColor: 'black',
+        borderRadius: 5,
+        backgroundColor: '#d6d6d6',
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+
+    progressBar: {
+        borderWidth: 1,
+        borderColor: 'green',
+        borderRadius: 5,
+        width: Dimensions.get('window').width - 50,
+        backgroundColor: '#f9fff9',
+        alignSelf: 'center'
     }
 });

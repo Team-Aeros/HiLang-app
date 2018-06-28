@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground, Switch } from 'react-native';
 import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
@@ -22,7 +22,10 @@ export default class Course extends React.Component {
             description: '',
             grammar: '',
             course_id: '',
-            vocabulary: []
+            vocabulary: [],
+            revert: false,
+            questionLang: this.props.navigation.getParam('translation'),
+            answerLang: this.props.navigation.getParam('native')
         }
 
         this.getLesson(this.props.navigation.getParam('id'));
@@ -69,8 +72,34 @@ export default class Course extends React.Component {
                     <Text style={ styles.section_subheader }>Vocabulary</Text>
     
                     {this.state.vocabulary}
+                    <View style={styles.flexRow}>
+                        <View style={styles.toggleRevert}>
+                            <Text style={styles.languageName}>
+                                {this.state.questionLang}
+                            </Text>
+                        </View>
+                        <View style={styles.toggleRevert}>
+                            <Switch
+                                value={this.state.revert}
+                                onValueChange={() => {
+                                    this.setState({revert:  !this.state.revert});
+                                    let holder = this.state.questionLang;
+                                    this.setState({questionLang: this.state.answerLang,
+                                                   answerLang: holder
+                                               });
     
-                    <TouchableOpacity style={styles.standarBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id, img: this.props.navigation.getParam('img')})}>
+                                }}
+                                >
+                            </Switch>
+                        </View>
+                        <View style={styles.toggleRevert}>
+                             <Text style={styles.languageName}>
+                                {this.state.answerLang}
+                            </Text>
+                        </View>
+                    </View>
+    
+                    <TouchableOpacity style={styles.standarBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id, img: this.props.navigation.getParam('img'), revert: this.state.revert})}>
                         <Text style={styles.standarBtn}> Start test </Text>
                     </TouchableOpacity>
                 </ScrollView>
