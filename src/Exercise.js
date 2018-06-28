@@ -149,5 +149,4 @@ export default class Exercise{
     		'id': this.lessonId
     	});
     }
-
 }

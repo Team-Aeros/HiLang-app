@@ -64,8 +64,8 @@ export default class Home extends React.Component {
             <ScrollView>
                 <View style={{ padding: 20}}>
                     <Text style={ styles.section_header }>Hello, { this.state.userName }</Text>
-                    <Text style={ styles.section_subheader }>Courses you've created</Text>
-                    { 
+                    <Text style={ styles.section_subheader }>Courses you're subscribed to</Text>
+                    {
                         this.state.subscribedCourses.map((course, key) => {
                             return (
                                 <TouchableOpacity key={course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: course.pk})}>
@@ -74,7 +74,7 @@ export default class Home extends React.Component {
                                     <Text style={ styles.course_card_author }>Created by { this.state.authors[course['fields']['user']] }</Text>
                                 </TouchableOpacity>
                             );
-                        }) 
+                        })
                     }
                 </View>
             </ScrollView>
