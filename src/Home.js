@@ -64,7 +64,7 @@ export default class Home extends React.Component {
             <ScrollView>
                 <View style={{ padding: 20}}>
                     <Text style={ styles.section_header }>Hello, { this.state.userName }</Text>
-                    <Text style={ styles.section_subheader }>Courses you've created</Text>
+                    <Text style={ styles.section_subheader }>Courses you're subscribed to</Text>
                     { 
                         this.state.subscribedCourses.map((course, key) => {
                             return (
