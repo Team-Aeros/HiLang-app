@@ -25,9 +25,7 @@ export default class Home extends React.Component {
         this._lazyUserLoader = LazyUserLoader.getInstance();
 
         let api = Api.getInstance();
-        api.callApi('/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
-            this.setState({userName: response.name});
-        });
+        api.callApi('/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => this.setState({userName: response.name}));
 
         this.getSubscribedCourses();
     }
@@ -70,7 +68,7 @@ export default class Home extends React.Component {
                     { 
                         this.state.subscribedCourses.map((course, key) => {
                             return (
-                                <TouchableOpacity key={course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: key})}>
+                                <TouchableOpacity key={course.pk} style={ styles.list_item } onPress={() => this.props.navigation.navigate('Course', {id: course.pk})}>
                                     <Text style={ styles.course_card_title }>{ course['fields']['name']}</Text>
                                     <Text>{ course['fields']['description'] }</Text>
                                     <Text style={ styles.course_card_author }>Created by { this.state.authors[course['fields']['user']] }</Text>

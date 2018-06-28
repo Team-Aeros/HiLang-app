@@ -43,7 +43,7 @@ export default class Course extends React.Component {
             for(lesson of response) {
                 let id = lesson.pk;
                 subArray.push(
-                    <TouchableOpacity style={styles.courseLessonCard} key={lesson.pk} onPress={() => {
+                    <TouchableOpacity style={styles.list_item} key={lesson.pk} onPress={() => {
                         this.props.navigation.navigate('Lesson', {id: id, img: this.state.image});
                     }}>
                         <Text>{lesson.fields['name']}</Text>
@@ -58,7 +58,7 @@ export default class Course extends React.Component {
     render() {
         return (
             <ImageBackground style={styles.courseBackground} source={{uri: this.state.image}}>
-                <View style={styles.courseDetContainer}>
+                <ScrollView pagingEnabled={true} height={50} style={styles.container}>
                     <View>
                         <View style={styles.courseHeader}>
                             <Text style = {styles.section_header}>{this.state.name}</Text>
@@ -69,11 +69,9 @@ export default class Course extends React.Component {
                         </View>
                     </View>
                     <View style={styles.courseBottom}>
-                        <ScrollView horizontal={true} pagingEnabled={true} height={50}>
                             { this.state.lessons }
-                        </ScrollView>
                     </View>
-                </View>
+                </ScrollView>
             </ImageBackground>
         );
     }
