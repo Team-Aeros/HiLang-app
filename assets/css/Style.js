@@ -218,9 +218,10 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: 'green',
+        alignItems: 'center',
         height: 100,
-        width: 80,
+        backgroundColor: '#fff',
+        margin: 3,
         borderColor: '#dddddd',
         borderWidth: 3,
         borderRadius: 5
@@ -230,7 +231,7 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: 'red'
+        padding: 30
     },
 
     simple_list_item: {
@@ -241,9 +242,8 @@ export default StyleSheet.create({
     },
 
     card: {
-        padding: 15,
         backgroundColor: '#fff',
-        height: 100,
+        height: 80,
         alignItems: 'flex-start'
     },
 
