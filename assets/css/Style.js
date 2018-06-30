@@ -8,8 +8,9 @@ export default StyleSheet.create({
     },
 
     courseBackground: {
-        height: Dimensions.get('window').height - 120,
         width: Dimensions.get('window').width,
+        padding: 20,
+        marginBottom: 0
     },
 
     content: {
@@ -103,11 +104,11 @@ export default StyleSheet.create({
     },
 
     section_subheader: {
-        fontSize: 23,
-        fontWeight: 'bold',
+        fontSize: 18,
         marginBottom: 5,
-        color: '#263238',
-        marginTop: 5
+        color: '#cc6343',
+        letterSpacing: -1,
+        marginTop: 20
     },
 
     courseLessonCard: {
@@ -263,14 +264,13 @@ export default StyleSheet.create({
     },
 
     courseHeader: {
-        marginBottom: 30,
         alignItems: 'center',
     },
 
     courseContent: {
         margin: 10,
-        borderWidth: 1,
-        borderColor: '#747574',
+        marginTop: 0,
+        padding: 20,
         backgroundColor: '#fff'
     },
 
@@ -412,5 +412,14 @@ export default StyleSheet.create({
     browseInput: {
         width: 250,
         fontSize: 20
+    },
+    shadow: {
+        shadowColor: '#595959',
+        shadowOffset: {
+            width: 1,
+            height: 2
+        },
+        shadowRadius: 2,
+        shadowOpacity: 1.0
     }
 });

@@ -4,7 +4,7 @@ import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
-const maxEntryLength = 60;
+import { MarkdownView} from 'react-native-markdown-view';
 
 export default class Lesson extends React.Component {
 
@@ -44,7 +44,7 @@ export default class Lesson extends React.Component {
             let subArray = [];
             for(entry of response.vocabulary) {
                 subArray.push(
-                    <View style={[styles.list_item]} key={entry.id}>
+                    <View style={[styles.simple_list_item]} key={entry.id}>
                         <Text style={[styles.vocEntry, styles.bold]}>{entry.native}</Text>
                         <Text style={styles.vocEntry}>{entry.translation}</Text>
                     </View>
@@ -60,16 +60,16 @@ export default class Lesson extends React.Component {
 
     render() {
         return (
-            <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
-                <ScrollView style={styles.container}>
-                    <Text style={ styles.section_header }>{this.state.name}</Text>
-                    <View>
-                        <Text>{this.state.description}</Text>
-                    </View>
+            <ScrollView>
+                <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
+                    <Text style={[styles.section_header, styles.shadow, { color: '#fff' }]}>{this.state.name}</Text>
+                </ImageBackground>
+                <View style={styles.courseContent}>
+                    <Text>{this.state.description}</Text>
                     <Text style={ styles.section_subheader }>Lesson content</Text>
-                    <Text>{this.state.grammar}</Text>
+                    <MarkdownView>{this.state.grammar}</MarkdownView>
                     <Text style={ styles.section_subheader }>Vocabulary</Text>
-    
+
                     {this.state.vocabulary}
     
                     <TouchableOpacity style={styles.standardBtnCon} onPress={() => this.props.navigation.navigate('PreExercise', 
@@ -81,8 +81,8 @@ export default class Lesson extends React.Component {
                         })}>
                         <Text style={styles.standardBtn}> Test my knowledge! </Text>
                     </TouchableOpacity>
-                </ScrollView>
-            </ImageBackground>
+                </View>
+            </ScrollView>
         );
     }
 }
