@@ -214,8 +214,20 @@ export default StyleSheet.create({
     header: {
         flex: 1,
         flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: 'green',
+        height: 100,
+        width: 80,
         borderColor: '#dddddd',
         borderWidth: 3,
+        borderRadius: 5
+    },
+
+    profileContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: 'red'
     },
 
     simple_list_item: {
@@ -268,10 +280,23 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
 
+    exerciseOptions: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        margin: 30
+    },
+
     flexRow: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+
+    exerciseOptionsRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
     },
 
     courseBottom: {
@@ -358,7 +383,7 @@ export default StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#d6d6d6',
         alignSelf: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     progressBar: {

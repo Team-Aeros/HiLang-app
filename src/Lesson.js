@@ -6,7 +6,7 @@ import Session from './Session.js';
 
 const maxEntryLength = 60;
 
-export default class Course extends React.Component {
+export default class Lesson extends React.Component {
 
     static navigationOptions = {
         title: 'Viewing lesson'
@@ -24,8 +24,7 @@ export default class Course extends React.Component {
             course_id: '',
             vocabulary: [],
             revert: false,
-            questionLang: this.props.navigation.getParam('translation'),
-            answerLang: this.props.navigation.getParam('native')
+            
         }
 
         this.getLesson(this.props.navigation.getParam('id'));
@@ -72,35 +71,15 @@ export default class Course extends React.Component {
                     <Text style={ styles.section_subheader }>Vocabulary</Text>
     
                     {this.state.vocabulary}
-                    <View style={styles.flexRow}>
-                        <View style={styles.toggleRevert}>
-                            <Text style={styles.languageName}>
-                                {this.state.questionLang}
-                            </Text>
-                        </View>
-                        <View style={styles.toggleRevert}>
-                            <Switch
-                                value={this.state.revert}
-                                onValueChange={() => {
-                                    this.setState({revert:  !this.state.revert});
-                                    let holder = this.state.questionLang;
-                                    this.setState({questionLang: this.state.answerLang,
-                                                   answerLang: holder
-                                               });
     
-                                }}
-                                >
-                            </Switch>
-                        </View>
-                        <View style={styles.toggleRevert}>
-                             <Text style={styles.languageName}>
-                                {this.state.answerLang}
-                            </Text>
-                        </View>
-                    </View>
-    
-                    <TouchableOpacity style={styles.standardBtnCon} onPress={() => this.props.navigation.navigate('Flashcards', {id: this.state.id, img: this.props.navigation.getParam('img'), revert: this.state.revert})}>
-                        <Text style={styles.standardBtn}> Start test </Text>
+                    <TouchableOpacity style={styles.standardBtnCon} onPress={() => this.props.navigation.navigate('PreExercise', 
+                        {
+                            id: this.state.id,
+                            img: this.props.navigation.getParam('img'),
+                            questionLang: this.props.navigation.getParam('translation'),
+                            answerLang: this.props.navigation.getParam('native')
+                        })}>
+                        <Text style={styles.standardBtn}> Test my knowledge! </Text>
                     </TouchableOpacity>
                 </ScrollView>
             </ImageBackground>

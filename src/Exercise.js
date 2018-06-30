@@ -5,7 +5,7 @@ import Api from './Api.js';
 const timer = require('react-native-timer');
 
 export default class Exercise{
-    constructor(props, revert){
+    constructor(props, options){
     	this.props = props;
         this.vocabulary = [];
         this.currentWord = null;
@@ -20,7 +20,9 @@ export default class Exercise{
         this.timeInSeconds = 0;
         this.progress = 0;
         this.lessonId = null;
-        this.revert = revert
+        this.revert = options.revert;
+        this.capital = options.capital;
+        this.punctuation = options.punctuation;
     }
 
     innitialize(lesson_id) {
@@ -29,19 +31,28 @@ export default class Exercise{
         Api.getInstance().callApi('/lesson/' + lesson_id, 'POST', {}, response => {
         	this.lessonName = response.name;
             for(question of response.vocabulary) {
+                let native = question.native;
+                let translation = question.translation;
+                if(!this.capital) {
+                    native = native.toLowerCase();
+                    translation = translation.toLowerCase();
+                }
+                if(!this.punctuation) {
+                    
+                }
             	if(!this.revert) {
             		this.vocabulary.push({
                     	id: question.id,
-                    	question: question.translation, 
-                    	correctAnswer: question.native,
+                    	question: translation, 
+                    	correctAnswer: native,
                     	sentenceStructure: question.sentenceStructure,
                     	lesson_id: question.lesson_id
                 	});
             	} else {
             		this.vocabulary.push({
                     	id: question.id,
-                    	question: question.native, 
-                    	correctAnswer: question.translation,
+                    	question: native, 
+                    	correctAnswer: translation,
                     	sentenceStructure: question.sentenceStructure,
                     	lesson_id: question.lesson_id
                 	});
@@ -59,7 +70,11 @@ export default class Exercise{
     }
 
     isCorrect(answer) {
-    	return answer === this.currentWord.correctAnswer;
+        if(this.capital) {
+            return answer === this.currentWord.correctAnswer;
+        }
+        return answer.toLowerCase() === this.currentWord.correctAnswer;
+    	
     }
 
     next(answer) {

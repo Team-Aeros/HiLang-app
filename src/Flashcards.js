@@ -10,7 +10,13 @@ const timer = require('react-native-timer');
 export default class Flashcards extends React.Component {
     constructor(props){
         super(props);
-        this.exercise = new Exercise(this.props, this.props.navigation.getParam('revert'));
+        let options = {
+            revert: this.props.navigation.getParam('revert'),
+            capital: this.props.navigation.getParam('capital'),
+            punctuation: this.props.navigation.getParam('punctuation')
+
+        }
+        this.exercise = new Exercise(this.props, options);
         this.exercise.innitialize(this.props.navigation.getParam('id'));
         this.state = {
             currentWord: this.exercise.getCurrentWord(),
@@ -35,7 +41,7 @@ export default class Flashcards extends React.Component {
                     disableSubmit: false
                 });
                 this.next();
-            }, 2000);
+            }, 4000);
         }else {
             this.setState({
                 containerStyle: styles.correctContainer,
@@ -47,7 +53,7 @@ export default class Flashcards extends React.Component {
                     disableSubmit: false
                 });
                 this.next();
-            }, 2000);
+            }, 4000);
         }   
     }
 
