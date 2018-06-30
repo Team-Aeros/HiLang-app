@@ -67,7 +67,8 @@ export default class Lesson extends React.Component {
                 <View style={styles.courseContent}>
                     <Text>{this.state.description}</Text>
                     <Text style={ styles.section_subheader }>Lesson content</Text>
-                    <MarkdownView>{this.state.grammar}</MarkdownView>
+                    
+                    
                     <Text style={ styles.section_subheader }>Vocabulary</Text>
 
                     {this.state.vocabulary}
@@ -75,6 +76,7 @@ export default class Lesson extends React.Component {
                     <TouchableOpacity style={styles.standardBtnCon} onPress={() => this.props.navigation.navigate('PreExercise', 
                         {
                             id: this.state.id,
+                            name: this.state.name,
                             img: this.props.navigation.getParam('img'),
                             questionLang: this.props.navigation.getParam('translation'),
                             answerLang: this.props.navigation.getParam('native')

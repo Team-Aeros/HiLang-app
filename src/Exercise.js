@@ -22,7 +22,8 @@ export default class Exercise{
         this.lessonId = null;
         this.revert = options.revert;
         this.capital = options.capital;
-        this.punctuation = options.punctuation;
+        this.accents = options.accents;
+        this.random = options.random;
     }
 
     innitialize(lesson_id) {
@@ -37,8 +38,9 @@ export default class Exercise{
                     native = native.toLowerCase();
                     translation = translation.toLowerCase();
                 }
-                if(!this.punctuation) {
-                    
+                if(!this.accents) {
+                    native = this.removeAccents(native);
+                    translation = this.removeAccents(translation);
                 }
             	if(!this.revert) {
             		this.vocabulary.push({
@@ -60,21 +62,42 @@ export default class Exercise{
                 
             }
             let subArray = [];
-            for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
-            	subArray.push(word);
+            if(this.random) {
+                for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
+                    subArray.push(word);
+                }
+                this.vocabulary = subArray.slice();
             }
-            this.vocabulary = subArray.slice();
             this.totalPoints = this.vocabulary.length;
             this.currentWord = this.vocabulary[0];
         });
     }
 
     isCorrect(answer) {
-        if(this.capital) {
-            return answer === this.currentWord.correctAnswer;
+        if(!this.capital) {
+            answer=answer.toLowerCase();
         }
-        return answer.toLowerCase() === this.currentWord.correctAnswer;
+        if(!this.accents) {
+            answer = this.removeAccents(answer);
+        }
+        return answer === this.currentWord.correctAnswer;
     	
+    }
+
+    removeAccents(input): string {
+        let strAccents = input.split('');
+        let strAccentsOut = new Array();
+        let strAccentsLen = strAccents.length;
+        let accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+        let accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+        for (let y = 0; y < strAccentsLen; y++) {
+            if (accents.indexOf(strAccents[y]) != -1) {
+                strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+            } else
+                strAccentsOut[y] = strAccents[y];
+        }
+        let output = strAccentsOut.join('');
+        return output
     }
 
     next(answer) {

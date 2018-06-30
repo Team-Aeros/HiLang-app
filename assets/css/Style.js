@@ -120,7 +120,7 @@ export default StyleSheet.create({
     	height: 50,
     	alignItems: 'center',
     	justifyContent: 'center',
-    	margin: 10,
+    	margin: 5,
         backgroundColor: '#309930'
     },
 
@@ -140,8 +140,6 @@ export default StyleSheet.create({
     languageName: {
         padding: 3,
         margin: 2,
-        marginTop: 0,
-        width: 130
     },
 
     standardBtn: {
@@ -200,12 +198,16 @@ export default StyleSheet.create({
     },
 
     resultContainer: {
-        padding: 5
+        padding: 5,
+        backgroundColor: '#fff'
     },
 
     resultHeader: {
-        borderWidth: 3,
+        borderWidth: 2,
+        borderRadius: 5,
+        borderColor: '#cccccc',
         marginBottom: 10,
+        padding: 10,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -247,7 +249,9 @@ export default StyleSheet.create({
 
     startExerciseScreen: {
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+        margin: 25
     },
 
     startExerciseBtnCon: {
@@ -274,6 +278,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff'
     },
 
+
     flexColumn: {
         flex: 1,
         flexDirection: 'column',
@@ -296,7 +301,8 @@ export default StyleSheet.create({
     exerciseOptionsRow: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        justifyContent: 'space-between',
+        margin: 10
     },
 
     courseBottom: {
@@ -318,16 +324,16 @@ export default StyleSheet.create({
         borderWidth: 3,
         borderColor: '#747574',
         borderRadius: 10,
-        backgroundColor: '#f9fff9',
+        backgroundColor: '#fcfcfc',
         alignItems: 'center',
         alignSelf: 'center',
         width: 300,
         height: 100,
         flex: 1,
         flexDirection: 'column',
-        marginBottom: 30,
-        paddingTop: 50,
-        paddingBottom: 50,
+        marginBottom: 15,
+        paddingTop: 25,
+        paddingBottom: 25,
     },
 
     errorContainer: {
@@ -341,9 +347,9 @@ export default StyleSheet.create({
         height: 100,
         flex: 1,
         flexDirection: 'column',
-        marginBottom: 30,
-        paddingTop: 50,
-        paddingBottom: 50,
+        marginBottom: 15,
+        paddingTop: 25,
+        paddingBottom: 25,
     },
 
     correctContainer: {
@@ -357,9 +363,9 @@ export default StyleSheet.create({
         height: 100,
         flex: 1,
         flexDirection: 'column',
-        marginBottom: 30,
-        paddingTop: 50,
-        paddingBottom: 50,
+        marginBottom: 15,
+        paddingTop: 25,
+        paddingBottom: 25,
     },
 
 
@@ -381,7 +387,7 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderColor: 'black',
         borderRadius: 5,
-        backgroundColor: '#d6d6d6',
+        backgroundColor: '#e8e5e5',
         alignSelf: 'center',
         alignItems: 'center',
     },
@@ -421,5 +427,10 @@ export default StyleSheet.create({
         },
         shadowRadius: 2,
         shadowOpacity: 1.0
+    },
+
+    optionsContainer: {
+        backgroundColor: '#fff',
+        height: Dimensions.get('window').height,
     }
 });
