@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Alert, ImageBackground } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground, Dimensions } from 'react-native';
 import styles from '../assets/css/Style';
 import Exercise from './Exercise.js';
 import Api from './Api.js';
@@ -10,12 +10,19 @@ const timer = require('react-native-timer');
 export default class Flashcards extends React.Component {
     constructor(props){
         super(props);
-        this.exercise = new Exercise(this.props, this.props.navigation.getParam('revert'));
+        let options = {
+            revert: this.props.navigation.getParam('revert'),
+            capital: this.props.navigation.getParam('capital'),
+            accents: this.props.navigation.getParam('accents'),
+            random: this.props.navigation.getParam('random')
+
+        }
+        this.exercise = new Exercise(this.props, options);
         this.exercise.innitialize(this.props.navigation.getParam('id'));
         this.state = {
             currentWord: this.exercise.getCurrentWord(),
             answer: '',
-            lessonName: '',
+            lessonName: this.props.navigation.getParam('lessonName'),
             progress: this.exercise.getProgress(),
             containerStyle: styles.testContainer,
             disableSubmit: false
@@ -69,11 +76,11 @@ export default class Flashcards extends React.Component {
     render() {
         if(this.state.currentWord != null) {
             return (
-                <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
-                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-                            <View style={styles.testTitle}>
-                                <Text style={{margin: 10, fontSize: 30}}>{this.state.lessonName}</Text>
-                            </View>
+                <View>
+                    <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
+                        <Text style={[styles.section_header, styles.shadow, { color: '#fff' }]}>{this.state.lessonName}</Text>
+                    </ImageBackground>
+                        <View style = {{backgroundColor: '#fff', margin: 10, height: 500}}>
                             <View style={this.state.containerStyle}>
                                 <Text style={styles.testQuestion}>{this.state.currentWord.question}</Text>
                                 <TextInput
@@ -97,20 +104,23 @@ export default class Flashcards extends React.Component {
                                 <Text style={styles.standardBtn}>submit</Text>
                             </TouchableOpacity>
                         </View>
-                </ImageBackground>
-
+                </View>
             );
         } else {
             return (
-                <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
-                <View style={styles.startExerciseScreen}>
-                        <TouchableOpacity style={styles.startExerciseBtnCon} onPress={ () => 
-                            this.start()
-                        }>
-                            <Text style={styles.standardBtn}>start</Text>
-                        </TouchableOpacity>
+                <View>
+                    <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
+                        <Text style={[styles.section_header, styles.shadow, { color: '#fff' }]}>{this.state.lessonName}</Text>
+                    </ImageBackground>
+                    <View style={styles.startExerciseScreen}>
+                            <TouchableOpacity style={styles.startExerciseBtnCon} onPress={ () => 
+                                this.start()
+                            }>
+                                <Text style={styles.standardBtn}>start</Text>
+                            </TouchableOpacity>
                     </View>
-                </ImageBackground>
+                </View>
+                
             );
         }
     }

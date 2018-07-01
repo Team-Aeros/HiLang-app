@@ -5,7 +5,7 @@ import Api from './Api.js';
 const timer = require('react-native-timer');
 
 export default class Exercise{
-    constructor(props, revert){
+    constructor(props, options){
     	this.props = props;
         this.vocabulary = [];
         this.currentWord = null;
@@ -20,7 +20,10 @@ export default class Exercise{
         this.timeInSeconds = 0;
         this.progress = 0;
         this.lessonId = null;
-        this.revert = revert
+        this.revert = options.revert;
+        this.capital = options.capital;
+        this.accents = options.accents;
+        this.random = options.random;
     }
 
     innitialize(lesson_id) {
@@ -29,19 +32,29 @@ export default class Exercise{
         Api.getInstance().callApi('/lesson/' + lesson_id, 'POST', {}, response => {
         	this.lessonName = response.name;
             for(question of response.vocabulary) {
+                let native = question.native;
+                let translation = question.translation;
+                if(!this.capital) {
+                    native = native.toLowerCase();
+                    translation = translation.toLowerCase();
+                }
+                if(!this.accents) {
+                    native = this.removeAccents(native);
+                    translation = this.removeAccents(translation);
+                }
             	if(!this.revert) {
             		this.vocabulary.push({
                     	id: question.id,
-                    	question: question.translation, 
-                    	correctAnswer: question.native,
+                    	question: translation, 
+                    	correctAnswer: native,
                     	sentenceStructure: question.sentenceStructure,
                     	lesson_id: question.lesson_id
                 	});
             	} else {
             		this.vocabulary.push({
                     	id: question.id,
-                    	question: question.native, 
-                    	correctAnswer: question.translation,
+                    	question: native, 
+                    	correctAnswer: translation,
                     	sentenceStructure: question.sentenceStructure,
                     	lesson_id: question.lesson_id
                 	});
@@ -49,17 +62,42 @@ export default class Exercise{
                 
             }
             let subArray = [];
-            for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
-            	subArray.push(word);
+            if(this.random) {
+                for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
+                    subArray.push(word);
+                }
+                this.vocabulary = subArray.slice();
             }
-            this.vocabulary = subArray.slice();
             this.totalPoints = this.vocabulary.length;
             this.currentWord = this.vocabulary[0];
         });
     }
 
     isCorrect(answer) {
-    	return answer === this.currentWord.correctAnswer;
+        if(!this.capital) {
+            answer=answer.toLowerCase();
+        }
+        if(!this.accents) {
+            answer = this.removeAccents(answer);
+        }
+        return answer === this.currentWord.correctAnswer;
+    	
+    }
+
+    removeAccents(input): string {
+        let strAccents = input.split('');
+        let strAccentsOut = new Array();
+        let strAccentsLen = strAccents.length;
+        let accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+        let accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+        for (let y = 0; y < strAccentsLen; y++) {
+            if (accents.indexOf(strAccents[y]) != -1) {
+                strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+            } else
+                strAccentsOut[y] = strAccents[y];
+        }
+        let output = strAccentsOut.join('');
+        return output
     }
 
     next(answer) {

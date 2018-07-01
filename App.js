@@ -11,6 +11,7 @@ import CourseList from './src/CourseList.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Flashcards from './src/Flashcards.js';
 import Result from './src/Result.js';
+import PreExercise from './src/PreExercise.js';
 
 import AccountAreaNavigation from './src/navigation/AccountAreaNavigation.js';
 
@@ -31,6 +32,7 @@ const CourseArea = createStackNavigator({
     CourseList: CourseList,
     Course: Course,
     Lesson: Lesson,
+    PreExercise: PreExercise,
     Flashcards: Flashcards,
     Result: Result
 });
