@@ -4,7 +4,7 @@ import Api from './Api.js';
 import styles from '../assets/css/Style.js';
 import Session from './Session.js';
 
-import { MarkdownView} from 'react-native-markdown-view';
+import { MarkdownView} from 'react-native-markdownview-cross-platform';
 
 export default class Lesson extends React.Component {
 
