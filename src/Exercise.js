@@ -45,16 +45,16 @@ export default class Exercise{
             	if(!this.revert) {
             		this.vocabulary.push({
                     	id: question.id,
-                    	question: translation, 
-                    	correctAnswer: native,
+                    	question: native, 
+                    	correctAnswer: translation,
                     	sentenceStructure: question.sentenceStructure,
                     	lesson_id: question.lesson_id
                 	});
             	} else {
             		this.vocabulary.push({
                     	id: question.id,
-                    	question: native, 
-                    	correctAnswer: translation,
+                    	question: translation, 
+                    	correctAnswer: native,
                     	sentenceStructure: question.sentenceStructure,
                     	lesson_id: question.lesson_id
                 	});
