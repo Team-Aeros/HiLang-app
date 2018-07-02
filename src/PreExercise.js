@@ -17,8 +17,6 @@ export default class PreExercise extends React.Component {
             lessonId: this.props.navigation.getParam('id'),
             lessonName: this.props.navigation.getParam('name'),
             revert: false,
-            questionLang: this.props.navigation.getParam('questionLang'),
-            answerLang: this.props.navigation.getParam('answerLang'),
             capital: true,
             accents: true,
             random: true
@@ -33,39 +31,23 @@ export default class PreExercise extends React.Component {
                 </ImageBackground>
             
                 <View style={styles.courseContent}>
-                    <View style={styles.exerciseOptionsRow}>
-                            <View style={styles.toggleRevert}>
-                                <Text style={styles.languageName}>
-                                    {this.state.questionLang}
+                    <View style={styles.simple_list_item}>
+                            <View>
+                                <Text>
+                                    Translate from foreign language to known language
                                 </Text>
-                            </View>
-                            <View style={styles.toggleRevert}>
                                 <Switch
                                     value={this.state.revert}
-                                    onValueChange={() => {
-                                        this.setState({revert:  !this.state.revert});
-                                        let holder = this.state.questionLang;
-                                        this.setState({questionLang: this.state.answerLang,
-                                                       answerLang: holder
-                                                   });
-    
-                                    }}
+                                    onValueChange={() => this.setState({ revert: !this.state.revert })}
                                     >
                                 </Switch>
                             </View>
-                            <View style={styles.toggleRevert}>
-                                 <Text style={styles.languageName}>
-                                    {this.state.answerLang}
-                                </Text>
-                            </View>
                     </View>
-                    <View style={styles.exerciseOptionsRow}>
-                            <View style={styles.toggleRevert}>
-                                <Text style={styles.languageName}>
-                                    Turn importance of capital letters ON or OFF
+                    <View style={styles.simple_list_item}>
+                            <View>
+                                <Text>
+                                    Capital letters are important
                                 </Text>
-                            </View>
-                            <View style={styles.toggleRevert}>
                                 <Switch
                                     value={this.state.capital}
                                     onValueChange={() => {
@@ -75,13 +57,11 @@ export default class PreExercise extends React.Component {
                                 </Switch>
                             </View>
                     </View>
-                    <View style={styles.exerciseOptionsRow}>
-                            <View style={styles.toggleRevert}>
+                    <View style={styles.simple_list_item}>
+                            <View>
                                 <Text style={styles.languageName}>
-                                    Turn importance of accents ON or OFF
+                                    Accents are important
                                 </Text>
-                            </View>
-                            <View style={styles.toggleRevert}>
                                 <Switch
                                     value={this.state.accents}
                                     onValueChange={() => {
@@ -91,13 +71,11 @@ export default class PreExercise extends React.Component {
                                 </Switch>
                             </View>
                     </View>
-                    <View style={styles.exerciseOptionsRow}>
-                        <View style={styles.toggleRevert}>
+                    <View style={styles.simple_list_item}>
+                        <View>
                             <Text style={styles.languageName}>
-                                Turn random order ON or OFF
+                                Ask words in random order
                             </Text>
-                        </View>
-                        <View style={styles.toggleRevert}>
                             <Switch
                                 value={this.state.random}
                                 onValueChange={() => {
