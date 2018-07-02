@@ -67,7 +67,7 @@ export default class Lesson extends React.Component {
                 <View style={styles.courseContent}>
                     <Text>{this.state.description}</Text>
                     <Text style={ styles.section_subheader }>Lesson content</Text>
-                    
+                    <MarkdownView>{this.state.grammar}</MarkdownView>
                     
                     <Text style={ styles.section_subheader }>Vocabulary</Text>
 
