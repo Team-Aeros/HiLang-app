@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Alert, RefreshControl } from 'react-native';
 import Api from './Api.js';
 import LazyUserLoader from './LazyUserLoader.js';
 import styles from '../assets/css/Style.js';
@@ -21,17 +21,18 @@ export default class Home extends React.Component {
             subscribedCourses: [],
             createdCourses: [],
             favoriteCourses: [],
-            authors: []
+            authors: [],
+            refreshing: false
         }
 
         this._lazyUserLoader = LazyUserLoader.getInstance();
 
         let api = Api.getInstance();
         api.callApi('/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => this.setState({userName: response.name}));
+    }
 
-        this.getSubscribedCourses();
-        this.getCreatedCourses();
-        this.getFavoriteCourses();
+    componentDidMount() {
+        this.updateCourses();
     }
 
     addCourses(response, state) {
@@ -50,7 +51,8 @@ export default class Home extends React.Component {
                 authors[author_id] = user.name;
 
                 this.setState({
-                    authors: [...authors]
+                    authors: [...authors],
+                    refreshing: false
                 });
             });
 
@@ -61,14 +63,17 @@ export default class Home extends React.Component {
     }
 
     getSubscribedCourses() {
+        this.setState({ refreshing: true });
         Api.getInstance().callApi('/user/subscriptions/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => this.addCourses(response, 'subscribedCourses'));
     }
 
     getCreatedCourses() {
+        this.setState({ refreshing: true });
         Api.getInstance().callApi('/courses/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => this.addCourses(response, 'createdCourses'));
     }
 
     getFavoriteCourses() {
+        this.setState({ refreshing: true });
         Api.getInstance().callApi('/user/favorites/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => this.addCourses(response, 'favoriteCourses'));
     }
 
@@ -82,9 +87,24 @@ export default class Home extends React.Component {
         );
     }
 
+    updateCourses() {
+        this.getSubscribedCourses();
+        this.getCreatedCourses();
+        this.getFavoriteCourses();
+    }
+
     render() {
         return (
-            <ScrollView>
+            <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={() => {
+                                this.setState({ refreshing: true });
+                                this.updateCourses();
+                            }} />
+                    }
+                >
                 <View style={{ padding: 20}}>
                     <Text style={ styles.section_header }>Hello, { this.state.userName }</Text>
                     <Text style={ styles.section_subheader }>Courses you're subscribed to</Text>
