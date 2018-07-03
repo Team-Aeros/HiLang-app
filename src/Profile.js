@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import styles from '../assets/css/Style';
 import Session from './Session.js';
 import Api from './Api.js';
@@ -21,24 +21,24 @@ export default class Profile extends React.Component {
 
     getUserInfo() {
         Api.getInstance().callApi('/user/' + Session.getInstance().getUserId() + '/', 'POST', {}, response => {
-                this.setState({
-                    email: response.email,
-                    name: response.name,
-                    //avatar: response.avatar
-                });
+            this.setState({
+                email: response.email,
+                name: response.name
             });
+        });
     }
 
     render() {
         return (
-            <View style={styles.profileContainer}>
-                <View style={styles.header}>
-                    <View style={styles.card}>
-                        <Text>E-mail:   </Text>
-                        <Text>Username: </Text>
-                    </View>
-                    <View style={styles.card}>
+            <View>
+                <View style={styles.courseContent}>
+                    <Text style={styles.section_header}>{ this.state.name }</Text>
+                    <View style={styles.simple_list_item}>
+                        <Text>E-mail:</Text>
                         <Text>{this.state.email}</Text>
+                    </View>
+                    <View style={styles.simple_list_item}>
+                        <Text>Username:</Text>
                         <Text>{this.state.name}</Text>
                     </View>
                 </View>
