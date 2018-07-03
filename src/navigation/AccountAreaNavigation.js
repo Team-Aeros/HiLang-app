@@ -20,7 +20,7 @@ export default class AccountAreaNavigation extends React.Component {
                 },
                 {
                     label: 'My courses',
-                    href: '',
+                    href: 'Home',
                     params: {}
                 },
                 {
