@@ -34,14 +34,7 @@ export default class Exercise{
             for(question of response.vocabulary) {
                 let native = question.native;
                 let translation = question.translation;
-                if(!this.capital) {
-                    native = native.toLowerCase();
-                    translation = translation.toLowerCase();
-                }
-                if(!this.accents) {
-                    native = this.removeAccents(native);
-                    translation = this.removeAccents(translation);
-                }
+
             	if(!this.revert) {
             		this.vocabulary.push({
                     	id: question.id,
@@ -74,13 +67,18 @@ export default class Exercise{
     }
 
     isCorrect(answer) {
+        let correctAnswer = this.currentWord.correctAnswer;
+
         if(!this.capital) {
-            answer=answer.toLowerCase();
+            answer = answer.toLowerCase();
+            correctAnswer = correctAnswer.toLowerCase();
         }
         if(!this.accents) {
             answer = this.removeAccents(answer);
+            correctAnswer = this.removeAccents(correctAnswer);
+
         }
-        return answer === this.currentWord.correctAnswer;
+        return answer === correctAnswer;
     	
     }
 

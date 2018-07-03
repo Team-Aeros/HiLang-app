@@ -24,21 +24,21 @@ export default class Profile extends React.Component {
                 this.setState({
                     email: response.email,
                     name: response.name,
-                    //avatar: response.avatar
+                    avatar: response.avatar
                 });
             });
     }
 
     render() {
         return (
-            <View style={styles.profileContainer}>
-                <View style={styles.header}>
-                    <View style={styles.card}>
-                        <Text>E-mail:   </Text>
-                        <Text>Username: </Text>
-                    </View>
-                    <View style={styles.card}>
+            <View>
+                <View style={styles.courseContent}>
+                    <View style={styles.simple_list_item}>
+                        <Text>E-mail:</Text>
                         <Text>{this.state.email}</Text>
+                    </View>
+                    <View style={styles.simple_list_item}>
+                        <Text>Username:</Text>
                         <Text>{this.state.name}</Text>
                     </View>
                 </View>
