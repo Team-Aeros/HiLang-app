@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground, Dimensions, Keyboard } from 'react-native';
 import styles from '../assets/css/Style';
 import Exercise from './Exercise.js';
 import Api from './Api.js';
@@ -8,6 +8,9 @@ import ProgressBar from 'react-native-progress/Bar';
 const timer = require('react-native-timer');
 
 export default class Flashcards extends React.Component {
+
+    textInput;
+
     constructor(props){
         super(props);
         let options = {
@@ -24,51 +27,57 @@ export default class Flashcards extends React.Component {
             answer: '',
             lessonName: this.props.navigation.getParam('lessonName'),
             progress: this.exercise.getProgress(),
-            containerStyle: styles.testContainer,
-            disableSubmit: false
+            inputStyle: styles.input_regular,
+            disableSubmit: false,
+            correctAnswer: ''
         };
     }
 
 
-    check() {
-        if(!this.exercise.isCorrect(this.state.currentWord.correctAnswer)){
+    next() {
+        if(!this.exercise.isCorrect(this.state.answer)){
             this.setState({
-                containerStyle: styles.errorContainer,
-                disableSubmit: true
+                inputStyle: [styles.input_regular, styles.input_error],
+                disableSubmit: true,
+                correctAnswer: 'Correct answer: ' + this.state.currentWord.correctAnswer
             });
             timer.setTimeout(this, 'error', () => {
                 this.setState({
-                    containerStyle: styles.testContainer,
-                    disableSubmit: false
+                    inputStyle: styles.input_regular,
+                    disableSubmit: false,
+                    correctAnswer: ''
                 });
-                this.next();
-            }, 2000);
+
+                this.nextWord();
+            }, 5000);
         }else {
             this.setState({
-                containerStyle: styles.correctContainer,
+                inputStyle: [styles.input_regular, styles.input_correct],
                 disableSubmit: true
             });
             timer.setTimeout(this, 'correct', () => {
                 this.setState({
-                    containerStyle: styles.testContainer,
+                    inputStyle: styles.input_regular,
                     disableSubmit: false
                 });
-                this.next();
+
+                this.nextWord();
             }, 2000);
-        }   
+        }
     }
 
-    next() {
-        this.exercise.next(this.state.currentWord.correctAnswer);
+    nextWord() {
+        this.exercise.next(this.state.answer);
         this.setState({currentWord: this.exercise.getCurrentWord()});
         this.setState({progress: this.exercise.getProgress()});
         this.setState({answer: ''});
     }
 
     start() {
-        this.setState({currentWord: this.exercise.getCurrentWord(),
-                       lessonName: this.exercise.getLessonName()
-                   });
+        this.setState({
+            currentWord: this.exercise.getCurrentWord(),
+            lessonName: this.exercise.getLessonName()
+        });
         this.exercise.startTimer();
     }
 
@@ -76,35 +85,38 @@ export default class Flashcards extends React.Component {
     render() {
         if(this.state.currentWord != null) {
             return (
-                <View>
+                <ScrollView onPress={() => Keyboard.dismiss()}>
                     <ImageBackground style={styles.courseBackground} source={{uri: this.props.navigation.getParam('img')}}>
                         <Text style={[styles.section_header, styles.shadow, { color: '#fff' }]}>{this.state.lessonName}</Text>
                     </ImageBackground>
-                        <View style = {{backgroundColor: '#fff', margin: 10, height: 500}}>
-                            <View style={this.state.containerStyle}>
+                        <View style = {{backgroundColor: '#fff', marginRight: 10, marginLeft: 10, height: 500}}>
+                            <View>
                                 <Text style={styles.testQuestion}>{this.state.currentWord.question}</Text>
+                                <Text>{ this.state.correctAnswer }</Text>
                                 <TextInput
-                                    style={styles.testInput}
+                                    ref={element => this.textInput = element}
+                                    style={this.state.inputStyle}
                                     label="Answer"
                                     placeholder="Enter your answer here"
                                     onChangeText={answer => this.setState({answer: answer})}
                                     value={this.state.answer}
                                     onSubmitEditing= { () => {
-                                        this.check();
+                                        this.next();
                                     }}>
-                                </TextInput>  
+                                </TextInput>
                             </View>
+
                             <View style={styles.progressBar}>
                                 <ProgressBar width={null} color={'green'} height={10} progress={this.state.progress}/>
                             </View>
                             
                             <TouchableOpacity disable={this.state.disableSubmit} style={styles.standardBtnCon} onPress={ () => 
-                                this.check()
+                                this.next()
                             }>
                                 <Text style={styles.standardBtn}>submit</Text>
                             </TouchableOpacity>
                         </View>
-                </View>
+                </ScrollView>
             );
         } else {
             return (

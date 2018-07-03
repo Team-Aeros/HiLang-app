@@ -95,11 +95,11 @@ export default class Exercise{
                 strAccentsOut[y] = strAccents[y];
         }
         let output = strAccentsOut.join('');
-        return output
+        return output;
     }
 
     next(answer) {
-        if(answer === this.currentWord.correctAnswer) {
+        if(this.isCorrect(answer)) {
             this.correctWords.push(this.currentWord);
             this.progress = this.correctWords.length / this.totalPoints;
             if(this.round === 0) {
@@ -127,10 +127,12 @@ export default class Exercise{
         } else {
         	this.vocabulary = this.incorrectWords.slice();
         	this.incorrectWords = [];
+
         	let subArray = [];
             for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random())) {
             	subArray.push(word);
             }
+
             this.vocabulary = subArray.slice();
             this.round++;
         }

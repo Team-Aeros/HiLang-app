@@ -320,67 +320,36 @@ export default StyleSheet.create({
         marginBottom: 20
     },
 
-    testContainer: {
-        borderWidth: 3,
+    input_correct: {
+        borderWidth: 1,
         borderColor: '#747574',
         borderRadius: 10,
-        backgroundColor: '#fcfcfc',
-        alignItems: 'center',
-        alignSelf: 'center',
-        width: 300,
-        height: 100,
-        flex: 1,
-        flexDirection: 'column',
-        marginBottom: 15,
-        paddingTop: 25,
-        paddingBottom: 25,
+        backgroundColor: '#f2fced'
     },
 
-    errorContainer: {
-        borderWidth: 3,
+    input_error: {
+        borderWidth: 1,
         borderColor: '#747574',
         borderRadius: 10,
-        backgroundColor: '#c62d2dac',
-        alignItems: 'center',
-        alignSelf: 'center',
-        width: 300,
-        height: 100,
-        flex: 1,
-        flexDirection: 'column',
-        marginBottom: 15,
-        paddingTop: 25,
-        paddingBottom: 25,
+        backgroundColor: '#fceeed'
     },
 
-    correctContainer: {
-        borderWidth: 3,
-        borderColor: '#747574',
-        borderRadius: 10,
-        backgroundColor: '#21bc24ac',
-        alignItems: 'center',
+    input_regular: {
+        borderWidth: 1,
+        borderColor: '#efefef',
         alignSelf: 'center',
-        width: 300,
-        height: 100,
-        flex: 1,
-        flexDirection: 'column',
-        marginBottom: 15,
-        paddingTop: 25,
-        paddingBottom: 25,
+        letterSpacing: -1,
+        fontSize: 30,
+        padding: 20,
+        borderRadius: 8,
+        marginBottom: 10,
+        width: Dimensions.get('window').width - 30
     },
-
 
     testQuestion: {
         margin: 10,
         fontSize: 20,
         marginBottom: 100
-    },
-
-    testInput: {
-        alignSelf: 'center',
-        letterSpacing: -1,
-        fontSize: 20,
-        width: 230,
-        padding: 5
     },
 
     toggleRevert: {
@@ -432,5 +401,5 @@ export default StyleSheet.create({
     optionsContainer: {
         backgroundColor: '#fff',
         height: Dimensions.get('window').height,
-    }
+    },
 });
